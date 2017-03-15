@@ -1,0 +1,43 @@
+.domain-samoa a {
+	color: #012a87;
+}
+.domain-samoa .navigation{
+	background: -webkit-linear-gradient(#0B48D3 0%, #012A87 100%);
+	
+	background: -moz-linear-gradient(#0B48D3 0%, #012A87 100%);
+	background: -o-linear-gradient(#0B48D3 0%, #012A87 100%);
+	background: -ms-linear-gradient(#0B48D3 0%, #012A87 100%);
+	background-color: #0B48D3;
+	
+	border-top: 1px solid #012A87;
+}
+
+
+.domain-samoa #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #0B48D3;
+	background: -webkit-linear-gradient(#DC171D 0%, #A3171B 100%);
+	
+	background: -moz-linear-gradient(#DC171D 0%, #A3171B 100%);
+	background: -o-linear-gradient(#DC171D 0%, #A3171B 100%);
+	background: -ms-linear-gradient(#DC171D 0%, #A3171B 100%);
+	background-color: #DC171D;
+}
+.domain-samoa #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #162A5A;
+}
+.domain-samoa #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #FF4949;
+}
+
+.domain-samoa .calendar-calendar .has-events {
+	background: #5068A0;
+}
+.domain-samoa .calendar-calendar .has-events a{
+	color: #fff;
+	text-decoration: none;
+}
+
+.domain-samoa .page-media .field-name-field-media-video-name a, .domain-samoa .page-media .field-name-field-media-album-name a{
+	color: #fff;
+}
+/***********************/

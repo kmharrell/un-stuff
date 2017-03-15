@@ -1,0 +1,56 @@
+body.domain-jamaica{
+	background-color: #EEEEB8;
+}
+.domain-jamaica .front-main, .domain-jamaica .front-small-gallery, .domain-jamaica .main-slideshow, .domain-jamaica .block, .domain-jamaica .front-top {
+	background: #F8F8D7;
+}
+.domain-jamaica a {
+	color: #2B7A0C;
+}
+.domain-jamaica .region-sidebar-second .block-title, .domain-jamaica #block-views-news-block-3 .block-title {
+	background: #B1B18B;
+	text-shadow: 0 1px 0 #93975E;
+	border-bottom: 0 1px 0 #93975E;
+	color: #36362D;
+}
+.domain-jamaica .region-sidebar-first #block-views-mission-staff-block .views-field-title h2 {
+	background: #B1B18B;
+	text-shadow: 0 1px 0 #93975E;
+	color: #36362D;
+
+}
+.domain-jamaica hr {
+	border-top: 1px solid #B1B391;
+	border-bottom: 1px solid #FFFFD2;
+}
+
+.domain-jamaica .navigation{
+	background: -webkit-linear-gradient(#32A515 0%,#114E0C 100%);
+	background: -moz-linear-gradient(#32A515 0%,#114E0C 100%);
+	background: -o-linear-gradient(#32A515 0%,#114E0C 100%);
+	background: -ms-linear-gradient(#32A515 0%,#114E0C 100%);
+	background-color: #28A01E;
+	border-top: 1px solid #1E6818;
+	
+}
+
+.domain-jamaica #navbar .navigation li a{
+	border-right: 1px solid #28682D;
+	text-shadow: -1px -1px 0 #546B4F;
+	color: #FF0;
+}
+
+.domain-jamaica #navbar .navigation #block-views-about-mission-block-4 {
+	border-top: 1px solid #3FAA25;
+}
+.domain-jamaica #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #3D7E45;
+}
+
+.domain-jamaica .calendar-calendar .has-events {
+	background: #E24646;
+}
+.domain-jamaica .calendar-calendar .has-events a{
+	color: #fff;
+	text-decoration: none;
+}

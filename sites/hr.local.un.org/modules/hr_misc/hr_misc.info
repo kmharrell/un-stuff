@@ -1,0 +1,5 @@
+name = HR Misc
+core = 7.x
+package = HR Handbook
+version = 7.x-1.0
+project = HR

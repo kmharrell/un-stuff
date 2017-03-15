@@ -1,0 +1,42 @@
+body.domain-gambia{
+	background-color: #E7FADA;
+}
+.domain-gambia a {
+	color: #7C5050;
+}
+.domain-gambia .navigation{
+	background: url(/sites/www.un.int/themes/static/custom/images/menu_item.png) repeat-x;
+	border-top: 1px solid #FF5757;
+	
+}
+.domain-gambia #navbar .navigation li a{
+	background: url(/sites/www.un.int/themes/static/custom/images/menu_separator.png) no-repeat right top;
+	text-shadow: -1px -1px 0 #A92009;
+	color: white;
+	border: 0px;
+}
+
+.domain-gambia #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #283FE4;
+	background: -webkit-linear-gradient(#3B55DA 0%, #414F9B 100%);
+	background: -moz-linear-gradient(#3B55DA 0%, #414F9B 100%);
+	background: -o-linear-gradient(#3B55DA 0%, #414F9B 100%);
+	background: -ms-linear-gradient(#3B55DA 0%, #414F9B 100%);
+	background-color: #414F9B;
+}
+.domain-gambia #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #6477A7;
+}
+.domain-gambia #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #152347;
+}
+
+
+.domain-gambia .calendar-calendar .has-events {
+	background: #E24646;
+}
+.domain-gambia .calendar-calendar .has-events a{
+	color: #fff;
+	text-decoration: none;
+}
+/***********************/

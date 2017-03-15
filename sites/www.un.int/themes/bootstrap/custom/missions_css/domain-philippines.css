@@ -1,0 +1,35 @@
+body.domain-philippines{
+	background-color: #F3F3FA;
+}
+.domain-philippines a {
+	color: #203BA7;
+}
+.domain-philippines .navigation{
+	background: -webkit-linear-gradient(#00209F 0%,#162255 100%);
+	background: -moz-linear-gradient(#00209F 0%,#162255 100%);
+	background: -o-linear-gradient(#00209F 0%,#162255 100%);
+	background: -ms-linear-gradient(#00209F 0%,#162255 100%);
+	background-color: #00209F;
+	border-top: 1px solid #001FFF;
+}
+.domain-philippines #navbar .navigation li a{
+	border-right: 1px solid #264DC9;
+}
+
+.domain-philippines #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #3D6EEB;
+	background: url(/sites/www.un.int/themes/bootstrap/custom/missions_css/images/menu_item.png) repeat-x;
+	background-color: #D21034;
+}
+
+.domain-philippines #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #29398A;
+}
+.domain-philippines #navbar .navigation #block-views-about-mission-block-4 li {
+	border: 0;
+}
+.domain-philippines #navbar .navigation #block-views-about-mission-block-4 li a {
+	border: 0;
+	background: url(/sites/www.un.int/themes/bootstrap/custom/missions_css/images/menu_separator.png) no-repeat right top;
+	text-shadow: -1px -1px 0 #A92009;
+}

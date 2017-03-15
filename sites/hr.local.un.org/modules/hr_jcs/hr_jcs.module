@@ -1,0 +1,415 @@
+<?php
+
+function hr_jcs_init() {
+  $path = drupal_get_path_alias();
+  if ($path == 'staff-member-info') {
+    user_cookie_save(array('staff_member_lookup'=>1));
+  }
+}
+
+/*
+function hr_jcs_block_info() {
+  $blocks = array();
+  $blocks['hr_jcs_staff_lookup_form'] = array(
+    'info' => t('HR Staff Lookup'),
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'user',
+  );
+  return $blocks;
+}
+
+function hr_jcs_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'hr_jcs_staff_lookup_form':
+      global $user;
+      if (arg(0) == 'user' && arg(1) == $user->uid) {
+        // Only display the form if the user info hasn't been set.
+        $account = user_load($user->uid);
+        if (empty($account->field_staff_member_info[LANGUAGE_NONE][0]['target_id'])) {
+          $form = drupal_get_form('hr_jcs_staff_lookup_form');
+          $block['subject'] = t('Staff Member Info Lookup');
+          $block['content'] = $form;
+        }
+      }
+
+      break;
+  }
+
+  return $block;
+}
+
+function hr_jcs_staff_lookup_form() {
+  $form = array();
+
+  global $user;
+  $email = $user->email;
+
+  $form['index_num'] = array(
+    '#title' => t('Index Number:'),
+    '#type' => 'textfield',
+    '#attributes' => array(
+      'maxlength' => 7,
+    ),
+  );
+  $form['email'] = array(
+    '#type' => 'value',
+    '#value' => $email,
+  );
+  $form['submit'] = array(
+    '#value' => t('Look Up'),
+    '#type' => 'submit',
+  );
+
+  return $form;
+}
+
+function hr_jcs_staff_lookup_form_validate($form, &$form_state) {
+  if (!is_numeric($form_state['values']['index_num'])) {
+    form_set_error('index_num', t('Please enter a valid numerical index number.'));
+  }
+}
+
+function hr_jcs_staff_lookup_form_submit($form, &$form_state) {
+  $index = null;
+
+  $index_num = trim($form_state['values']['index_num']);
+  $email = trim($form_state['values']['email']);
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'staff_member_info')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->propertyCondition('title', $index_num)
+    ->fieldCondition('field_email_id', 'value', $email, '=')
+    ->range(0, 10)
+    ->addMetaData('account', user_load(1)); // Run the query as user 1.
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $smi_nids = array_keys($result['node']);
+    if (!empty($smi_nids[0])) {
+      $index = $smi_nids[0];
+      // Set the user's SMI reference.
+      global $user;
+      $account = user_load($user->uid);
+      $account->field_staff_member_info[LANGUAGE_NONE][0]['target_id'] = $index;
+      user_save($account);
+    }
+  }
+  if (!$index) {
+    drupal_set_message(t("Sorry, could not find Staff Member info for your index number."));
+  }
+}
+*/
+
+function hr_jcs_menu() {
+  return array(
+    'hr_jcs_emails' => array(
+      'page callback' => 'hr_jcs_test_emails',
+      'access callback' => true,
+    ),
+    'hr_jcs_emails/finished' => array(
+      'page callback' => 'hr_jcs_test_emails_finished',
+      'access callback' => true,
+    ),
+  );
+}
+
+function hr_jcs_user_presave(&$edit, $account, $category) {
+  $edit = $edit;
+  if ($category == 'account') {
+    $email = $edit['mail'];
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'staff_member_info')
+      ->propertyCondition('status', NODE_PUBLISHED)
+      ->fieldCondition('field_email_id', 'value', $email, '=')
+      ->range(0, 10)
+      ->addMetaData('account', user_load(1)); // Run the query as user 1.
+    $result = $query->execute();
+
+    $found = false;
+    if (isset($result['node'])) {
+      $smi_nids = array_keys($result['node']);
+      if (!empty($smi_nids[0])) {
+        $index = $smi_nids[0];
+        // Set the user's SMI reference.
+        $found = true;
+        $edit['field_staff_member_info'][LANGUAGE_NONE][0]['target_id'] = (string) $index;
+      }
+    }
+    if ($found == false && !empty($_COOKIE['Drupal_visitor_staff_member_lookup'])) {
+      $msg = 'Your information is currently not available and it may be due to one of the following reasons:
+<ol>
+<li>Since the Umoja clean-up is an ongoing activity, your data may not yet be available. It will be available in the successive clean-up. Please try again in one month.</li>
+<li>You are already live in Umoja, <a href="https://hrdev.un.org/staff-member-info/umoja">click here for instructions to log into Umoja</a>.</li>
+<li>You are not part of FS, P or D category.</li>
+</ol>';
+      drupal_set_message(t($msg), 'warning');
+      user_cookie_delete('staff_member_lookup');
+    }
+  }
+}
+
+function hr_jcs_preprocess_user_profile(&$vars) {
+  global $user;
+  $uid = $vars['elements']['#account']->uid;
+  if ((!array_intersect(array_keys($user->roles), array(3, 4)) && $user->uid != $uid)) {
+    // Remove access to Staff Member Info
+    unset($vars['user_profile']['field_staff_member_info']);
+  }
+}
+
+function hr_jcs_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'user_profile_form') {
+    global $user;
+    if (!array_intersect(array_keys($user->roles), array(3, 4))) {
+      if (isset($form['field_staff_member_info'])) {
+        $form['field_staff_member_info']['#access'] = false;
+      }
+    }
+  }
+  if ($form_id == 'views_exposed_form' && $form_state['view']->name == 'job_codes') {
+    $form = $form;
+    $tids = array();
+    if (!empty($form['field_job_network_tid']['#options'][0]->option)) {
+      foreach ($form['field_job_network_tid']['#options'] as $option) {
+        if (is_array($option->option)) {
+          $tids[] = reset(array_flip($option->option));
+        }
+      }
+    }
+    if (!empty($tids)) {
+      $terms = taxonomy_term_load_multiple($tids);
+      if (!empty($form['field_job_network_tid']['#options']) && is_array($form['field_job_network_tid']['#options'])) {
+        foreach ($form['field_job_network_tid']['#options'] as &$opt) {
+          $tid = array_flip($opt->option);
+          reset($tid);
+          if (!empty($terms[$tid]->description)) {
+            $opt->option[$tid] .= ' - '.$terms[$tid]->description;
+          }
+        }
+      }
+      if (!empty($form['field_job_family_tid']['#options']) && is_array($form['field_job_family_tid']['#options'])) {
+        foreach ($form['field_job_family_tid']['#options'] as $key => &$opt) {
+          if (!empty($terms[$key]->description)) {
+            $opt .= ' - '.$terms[$key]->description;
+          }
+        }
+      }
+    }
+  }
+
+  if ($form_id == 'views_exposed_form' && ($form_state['view']->name == 'job_code' || $form_state['view']->name == 'job_code_deprecated')) {
+    $tids = array();
+
+    switch ($form_state['view']->name == 'job_code_deprecated') {
+      default:
+        $parent_field = 'field_job_network_parent_1';
+        break;
+      case 'job_code_deprecated':
+        $parent_field = 'field_job_network_deprecated_parent';
+        break;
+    }
+
+    if (!empty($form['field_job_network']['#options']['All'])) {
+      foreach ($form['field_job_network']['#options'] as $key => $option) {
+        if ($key != 'All') {
+          $tids[] = $key;
+        }
+      }
+    }
+    if (!empty($tids)) {
+      $terms = taxonomy_term_load_multiple($tids);
+      if (!empty($form['field_job_network']['#options']) && is_array($form['field_job_network']['#options'])) {
+        // Set up JavaScript object representing term hierarchy
+        $hierarchy = array();
+        $active_parent = null;
+
+        // We go through the field_job_network, but we're also building the parent select list.
+        if (!empty($form[$parent_field]['#options']) && is_array($form[$parent_field]['#options'])) {
+          // Re-initialise.
+          $form[$parent_field]['#options'] = array(
+            'All' => t('- Any -'),
+          );
+        }
+
+        foreach ($form['field_job_network']['#options'] as $key => &$opt) {
+          if ($key == 'All') {
+            continue;
+          }
+          if (!empty($terms[$key]->description)) {
+            $opt .= ': '.$terms[$key]->description;
+          }
+          if (substr($opt, 0, 1) != '-') {
+            // This was a parent ("network"), not a child.
+            $hierarchy[$key] = array();
+            $active_parent = $key;
+
+            $option = $opt;
+            $form[$parent_field]['#options'][$key] = $option;
+            // Remove it from the child dropdown.
+            unset($form['field_job_network']['#options'][$key]);
+            continue;
+          }
+          else {
+            // This was a child term.
+            if ($active_parent != null) {
+              $hierarchy[$active_parent][] = $key;
+            }
+
+            $opt = substr($opt, 1);
+          }
+        }
+      }
+
+      drupal_add_js(drupal_get_path('module', 'hr_jcs').'/js/hr_jcs.js');
+      drupal_add_js(array('hr_jcs' => array('hierarchy' => $hierarchy)), 'setting');
+    }
+  }
+}
+
+function hr_jcs_test_emails() {
+  $batch = array(
+    'title' => t('Exporting'),
+    'operations' => array(
+      array('hr_jcs_test_email_job', array()),
+    ),
+  );
+  $_SESSION['hr_jcs_test_email_errors'] = array();
+  $_SESSION['hr_jcs_test_email_good'] = array();
+  batch_set($batch);
+  batch_process('hr_jcs_emails/finished');
+
+}
+
+function hr_jcs_test_email_job(&$context) {
+  //$emails = file('/home/craig/emails-test.txt');
+  $emails = file('/home/craig/Staff-Information_Datafeed-errorKeys.csv');
+  if (!$emails) {
+    return;
+  }
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['current'] = 0;
+    $context['sandbox']['max'] = count($emails);
+  }
+
+  $limit = 200;
+
+  $iter = 0;
+  $this_round = 0;
+  foreach($emails as $email) {
+    $iter++;
+    if ($this_round > $limit) {
+      break;
+    }
+    if ($iter <= $context['sandbox']['current']) {
+      continue;
+    }
+    else {
+      $context['sandbox']['current'] = $iter;
+      $this_round++;
+
+      $context['message'] = 'Processing '.$email;
+      $email = str_replace("\n", "", trim($email));
+      if (!$email) {
+        break;
+      }
+      //if (hr_jcs_detect_ldap_error_email(str_replace("\n", "", $email))) {
+      if (!$result = hr_jcs_detect_ldap_error_names(str_replace("\n", "", $email))) {
+        $_SESSION['hr_jcs_test_email_errors'][$email] = $email;
+      }
+      else {
+        $_SESSION['hr_jcs_test_email_good'][$email] = $result;
+      }
+    }
+  }
+
+  if ($context['sandbox']['current'] < $context['sandbox']['max']) {
+    $context['finished'] = $context['sandbox']['current'] / $context['sandbox']['max'];
+  }
+}
+
+function hr_jcs_test_emails_finished() {
+  $output = '<h2>Issue Emails Errors:</h2> <ol>';
+  foreach ($_SESSION['hr_jcs_test_email_errors'] as $email => $email) {
+    $output .= '<li>'.$email.'</li>';
+  }
+  $output .= '</ol>';
+
+  $cols = array('cn','mail','displayname','maildomain','sourcedomain','uid','url','sn','givenname');
+  $output .= '<h2>Good emails:</h2>';
+  $output .= '<table>';
+  $output .= '<thead><tr><th>ohrm_email_key</th>';
+  foreach ($cols as $col) {
+    $output .= '<th>'.$col.'</th>';
+  }
+  $output .= '</tr></thead>';
+  $output .= '<tbody>';
+
+  foreach ($_SESSION['hr_jcs_test_email_good'] as $email => $result)  {
+    $output .= '<tr>';
+    $output .= '<td>'.$email.'</td>';
+    $row = array();
+    foreach ($result as $key => $value) {
+      if (!is_numeric($key) && in_array($key, $cols)) {
+        $row[$key] = $value[0];
+      }
+    }
+    foreach ($cols as $col) {
+      $output .= '<td>';
+      if (!empty($row[$col])) {
+        $output .= $row[$col];
+      }
+      $output .= '</td>';
+    }
+    $output .= '</tr>';
+  }
+  $output .= '</tbody></table>';
+  return $output;
+}
+
+function hr_jcs_detect_ldap_error_email($email) {
+  ldap_servers_module_load_include('inc', 'ldap_servers', 'ldap_servers.functions');
+  $path = drupal_get_path('module', 'ldap_servers').'/ldap_servers.test_form.inc';
+  require_once($path);
+  $sid = $values['sid'];
+  $ldap_server = ldap_servers_get_servers($sid, 'all', TRUE);
+  $ldap_server = $ldap_server['ldap01.un.org'];
+
+
+  // connect to ldap
+  foreach ($ldap_server->basedn as $dn) {
+    $result = $ldap_server->search($dn, 'email='.$email);
+    if ($result['count'] == 1) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function hr_jcs_detect_ldap_error_names($key) {
+  $key = explode('|||', $key);
+
+  $email = strtolower($key[0]);
+  $fname = strtolower($key[1]);
+  $lname = strtolower($key[2]);
+
+  ldap_servers_module_load_include('inc', 'ldap_servers', 'ldap_servers.functions');
+  $path = drupal_get_path('module', 'ldap_servers').'/ldap_servers.test_form.inc';
+  require_once($path);
+  $sid = $values['sid'];
+  $ldap_server = ldap_servers_get_servers($sid, 'all', TRUE);
+  $ldap_server = $ldap_server['ldap01.un.org'];
+
+  // connect to ldap
+  foreach ($ldap_server->basedn as $dn) {
+    $result = $ldap_server->search($dn, 'cn='.$fname.' '.$lname);
+    if ($result['count'] == 1) {
+      return $result[0];
+    }
+  }
+  return false;
+}

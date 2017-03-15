@@ -1,0 +1,373 @@
+<?php
+
+/**
+ * Implements hook_init
+ */
+function custom_unite_init() {
+  if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == 'edit') {
+    $node = node_load(arg(1));
+    if ($node->type == 'event_details') {
+      drupal_add_js(drupal_get_path('module', 'custom_unite').'/js/event_menu_tabs.js', array(
+        'scope' => 'header',
+        'every_page' => false,
+        'preprocess' => false,
+      ));
+    }
+  }
+}
+
+/**
+ * Implements hook_block_info
+ */
+function custom_unite_block_info() {
+  $blocks = array(
+    'custom_unite_event_tabs' => array(
+      'info' => t('Unite Event Tabs'),
+      'cache' => DRUPAL_CACHE_PER_PAGE,
+    ),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view
+ */
+function custom_unite_block_view($delta = '') {
+  switch ($delta) {
+    case 'custom_unite_event_tabs':
+      $block['content'] = custom_unite_event_tabs_block_view();
+      return $block;
+      break;
+  }
+}
+
+/**
+ * Get the HTML for the event-contextualised Menu Tabs
+ * Filters for access control.
+ */
+function custom_unite_event_tabs_block_view() {
+  if ($event_details = custom_unite_get_event_details()) {
+    $og = og_context('node');
+    $active_tabs = custom_unite_get_active_tabs($event_details);
+    $og_roles = og_get_user_roles('node', $og['gid']);
+
+    $html = '<div id="event-menu">';
+    foreach ($active_tabs as $key => $active_tab) {
+      // This is an access-restricted item
+      if (isset($active_tab['access']) && is_array($active_tab['access'])) {
+        // Check to see if the user's og_roles don't overlap.
+        if (!array_intersect(array_keys($og_roles), $active_tab['access'])) {
+          // Roles didn't overlap -- this person doesn't have access. Hide this item.
+          continue;
+        }
+      }
+      $path = url('node/'.$og['gid'].'/'.$active_tab['link']);
+      $html .= l($active_tab['text'], $path, array('external'=> true, 'attributes' => array('class'=>$key)));
+    }
+    $html .= '</div>';
+    return $html;
+  }
+  return false;
+}
+
+/**
+ * Take an event details node and determine what the active tabs should be.
+ * Does not take into account access control.
+ * @param $event_details node
+ * @return array of tabs
+ */
+function custom_unite_get_active_tabs($event_details) {
+  $active_tabs = array();
+  $all_tabs = custom_unite_event_tabs();
+
+  $field = 'field_menu_tabs';
+  $field_data = field_get_items('node', $event_details, $field);
+  foreach ($field_data as $field_datum) {
+    $key = $field_datum['value'];
+    if (isset($all_tabs[$key])) {
+      $active_tabs[$key] = $all_tabs[$key];
+    }
+  }
+
+  return $active_tabs;
+}
+
+/**
+ * Returns all the possible event tabs
+ * @return array
+ */
+function custom_unite_event_tabs() {
+  return array(
+    'home' => array(
+      'text' => 'Programme',
+      'link' => '',
+    ),
+    'background' => array(
+      'text' => 'Background',
+      'link' => 'background',
+    ),
+    'agenda' => array(
+      'text' => 'Agenda',
+      'link' => 'agenda',
+    ),
+    'documents' => array(
+      'text' => 'Documents',
+      'link' => 'documents',
+    ),
+    'statements' => array(
+      'text' => 'Statements',
+      'link' => 'statements',
+    ),
+    'media' => array(
+      'text' => 'Media',
+      'link' => 'media',
+    ),
+    'register' => array(
+      'text' => 'Register',
+      'link' => 'register',
+    ),
+    'event-content' => array(
+      'text' => 'Event Content',
+      'link' => 'event-content',
+      'access' => array(
+        5
+      ),
+    ),
+    'printing-dashboard' => array(
+      'text' => 'Printing Dashboard',
+      'link' => 'printing-dashboard',
+      'access' => array(
+        6, 13, 15
+      ),
+    ),
+    'interpreter_dashboard' => array(
+      'text' => 'Interpreter',
+      'link' => 'interpreter_dashboard',
+      'access' => array(
+        6, 13, 14
+      ),
+    ),
+  );
+}
+
+function custom_unite_form_event_details_node_form_alter(&$form, $form_state) {
+  $form['#validate'][] = 'custom_unite_form_event_details_node_form_validate';
+}
+
+function custom_unite_form_event_details_node_form_validate($form, &$form_state) {
+  $found_tabs = array();
+  foreach ($form_state['values']['field_menu_tabs']['und'] as $menu_tab) {
+    $found_tabs[] = $menu_tab['value'];
+  }
+  if (!in_array('home', $found_tabs)) {
+    form_set_error('field_menu_tabs', t('The "Programmes" menu tab is required.'));
+  }
+  if (!in_array('event-content', $found_tabs)) {
+    form_set_error('field_menu_tabs', t('The "Event Content" menu tab is required.'));
+  }
+}
+
+/**
+ * Helper function to determine the current "event" context
+ * @return event details node or false if there is none.
+ */
+function custom_unite_get_event_details($gid = null) {
+  $nodes = &drupal_static(__FUNCTION__);
+  if ($gid === null) {
+    // Determine the "master event" node for this group. (We're getting any group node context, actually, but if
+    // it's not a master event, it won't have an "Event Details" node available later, so that's fine.
+    $og = og_context('node');
+    if (isset($og['gid'])) {
+      $gid = $og['gid'];
+    }
+  }
+  if ($gid) {
+    if (!isset($nodes[$gid])) {
+      // Initialise as false
+      $nodes[$gid] = false;
+      // Query the db
+      $query = new EntityFieldQuery();
+      $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'event_details')
+        ->propertyCondition('status', 1)
+        ->fieldCondition('og_group_ref', 'target_id', $gid, '=')
+        ->range(0, 1);
+      $result = $query->execute();
+      // We've queried for an event details node/
+      if (isset($result['node']) && count($result['node']) == 1) {
+        $result['node'] = array_values($result['node']);
+        // Got it! Return.
+        $nodes[$gid] = node_load($result['node'][0]->nid);
+      }
+    }
+    return $nodes[$gid];
+  }
+  // Nothing was returned yet; we return false.
+  return false;
+}
+
+/**
+ * Menu callback for the autocomplete results.
+ */
+function custom_unite_form_alter(&$form, &$form_state, $form_id){
+  switch ($form_id) {
+    case 'webform_client_form_15':
+      if(isset($_GET['event']) && isset($_GET['event']))
+      {
+        $EventName = urldecode($_GET['event']);
+        $form['submitted']['event']['#default_value'] = $EventName;
+
+      }
+      //Adding destination to form
+      $FileName = '';
+      if(isset($_GET['title']) && isset($_GET['title']))
+      {
+        $FileName_nid = urldecode($_GET['title']);
+        $obj = node_load($FileName_nid);
+        if(isset($obj->title)){
+          $FileName = $obj->title;
+          $form['submitted']['file_name']['#default_value'] = $FileName;
+          $form['submitted']['file_nid']['#default_value'] = $FileName_nid;
+        }
+      }
+
+      $form['submitted']['file_name']['#default_value'] = $FileName;
+      $form['submitted']['file_name']['#attributes']['disabled'] = true;
+      $form['submitted']['publish_status']['#attributes']['hidden'] = true;
+      if(empty($form['submitted']['back_url']['#default_value']))
+      {
+        $path = $_SERVER['HTTP_REFERER'];
+        $form['submitted']['back_url']['#default_value'] = $path;
+      }
+
+
+      array_push($form['#submit'],'webform_client_form_15_submit');
+      break;
+    case 'document_statements_node_form':
+      if(isset($_GET['field_file_type']) && !empty($_GET['field_file_type']))
+      {
+        $swich = $_GET['field_file_type'];
+
+        switch($swich)
+        {
+          case 'Statement':
+            $lang = $form['field_file_type']['#language'];
+            $form['field_file_type'][$lang]['#default_value'] = 'Statement';
+            break;
+          case 'Document':
+            $lang = $form['field_file_type']['#language'];
+            $form['field_file_type'][$lang]['#default_value'] = 'Document';
+            break;
+
+        }
+      }
+      break;
+
+  }
+}
+function webform_client_form_15_submit($form,&$form_state){
+  if (isset($form['values']['back_url'])) {
+    drupal_goto($form['values']['back_url']);
+  }
+}
+
+function custom_unite_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+
+function custom_unite_views_data() {
+  $data = array();
+  $data['unite_events']['table']['group'] = t('Unite Events');
+  $data['unite_events']['table']['join'] = array(
+    // #global is a special flag which let's a table appear all the time.
+    '#global' => array(),
+  );
+  $data['unite_events']['unite_events_doc_print_handler'] = array(
+    'title' => t('Document Print'),
+    'help' => t('A button to send this node to be printed.'),
+    'field' => array(
+      'handler' => 'unite_events_doc_print_handler',
+    ),
+  );
+  return $data;
+}
+
+function custom_unite_preprocess_views_view_field(&$vars) {
+  static $thing = 0;
+  if ($vars['view']->name == 'documents') {
+    if ($vars['field']->field == 'nothing') {
+      if (isset($vars['view']->args[0])) {
+        if ($event_details = custom_unite_get_event_details($vars['view']->args[0])) {
+          if (!isset($event_details->field_print_status['und'][0]['value']) || $event_details->field_print_status['und'][0]['value'] != 1 ) {
+            $vars['hide_print'] = true;
+          }
+          else {
+            $vars['hide_print'] = false;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Custom PHP Views "contextual filter" default value handler.
+ * Attempts to find an OG context first, and if that fails, sees if this is an existing registration and uses the entity
+ * that the registration is associated with.
+ */
+function custom_unite_get_meetings_contextual_filter() {
+  $og_context = og_context();
+  if (!empty($og_context['gid'])) {
+    return $og_context['gid'];
+  }
+  elseif (arg(0) == 'registration' && is_numeric(arg(1))) {
+    $registration = registration_load(arg(1));
+    if (!empty($registration->entity_id)) {
+      return $registration->entity_id;
+    }
+  }
+  return false;
+}
+
+/**
+ * Load the meeting titles and nid's for a given master event nid
+ * @param $master_event_nid - Node ID of the master event
+ * @return array of meeting titles keyed on nid
+ */
+function custom_unite_get_meetings($master_event_nid) {
+  $meetings = &drupal_static(__FUNCTION__);
+  if (!isset($meetings[$master_event_nid])) {
+    $cid = 'event_meetings:'.$master_event_nid;
+    $cache = cache_get($cid);
+
+    if (!isset($cache->data)) {
+      $meetings[$master_event_nid] = array();
+
+      $query = db_select('node', 'n');
+      $query->fields('n', array('nid', 'title'));
+      $query->addJoin('INNER', 'og_membership', 'og', 'n.nid = og.etid');
+      $query->condition('n.type', 'meeting', '=');
+      $query->condition('n.status', 1, '=');
+      $query->condition('og.gid', $master_event_nid, '=');
+      $query->condition('og.entity_type', 'node', '=');
+      $query->condition('og.field_name', 'og_group_ref', '=');
+      $query->condition('og.state', 1, '=');
+      $query->condition('og.group_type', 'node', '=');
+      $result = $query->execute();
+
+      foreach ($result as $row) {
+        $meetings[$master_event_nid][$row->nid] = $row->title;
+      }
+
+      $expiration = time()+60*5; // Expire after five minutes
+      cache_set($cid, $meetings[$master_event_nid], 'cache', $expiration);
+    } else {
+      $meetings[$master_event_nid] = $cache->data;
+    }
+  }
+
+  return $meetings[$master_event_nid];
+}

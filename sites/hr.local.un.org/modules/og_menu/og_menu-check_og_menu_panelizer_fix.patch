@@ -1,0 +1,13 @@
+diff --git a/og_menu.module b/og_menu.module
+index 6ad9aaa..eea444a 100644
+--- a/og_menu.module
++++ b/og_menu.module
+@@ -588,7 +588,7 @@ function og_menu_node_insert($node) {
+  */
+ function og_menu_node_update($node) {
+   if (og_is_group_type('node', $node->type)) {
+-    if ($node->og_menu) {
++    if (isset($node->og_menu)) {
+       $menu = og_menu_get_group_menus(array($node->nid));
+       if (empty($menu)) {
+         menu_save(array(

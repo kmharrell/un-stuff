@@ -1,0 +1,36 @@
+body.domain-guyana{
+	background-color: #E2FADA;
+}
+.domain-guyana a {
+	color: #CE0A0A;
+}
+.domain-guyana .navigation{
+	background: -webkit-linear-gradient(#249E44 0%, #1F7C37 100%);
+	background: -moz-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background: -o-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background: -ms-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background-color: #249E44;
+	border-top: 1px solid #1FC74B;
+	
+}
+.domain-guyana #navbar .navigation li a{
+	border-right: 1px solid #177730;
+	text-shadow: -1px -1px 0 #206932;
+}
+
+.domain-guyana #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #FF0;
+	background: -webkit-linear-gradient(#F00 0%, #CA0E16 100%);
+	background: -moz-linear-gradient(#F00 0%, #CA0E16 100%);
+	background: -o-linear-gradient(#F00 0%, #CA0E16 100%);
+	background: -ms-linear-gradient(#F00 0%, #CA0E16 100%);
+	background-color: #F00;
+}
+.domain-guyana #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #E67D7D;
+}
+.domain-guyana #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #BDC426;
+}
+
+/***********************/

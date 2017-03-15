@@ -1,0 +1,37 @@
+body.domain-mali{
+	background-color: #D6E7DA;
+}
+.domain-mali a {
+	color: #14B53A;
+}
+.domain-mali .navigation{
+	background: -webkit-linear-gradient(#14B53A 0%,#337A21 100%);
+	background: -moz-linear-gradient(#14B53A 0%,#337A21 100%);
+	background: -o-linear-gradient(#14B53A 0%,#337A21 100%);
+	background: -ms-linear-gradient(#14B53A 0%,#337A21 100%);
+	background-color: #14B53A;
+	border-top: 1px solid #26DF2D;
+}
+.domain-mali #navbar .navigation li a{
+	border-right: 1px solid #146F1E;
+	text-shadow: -1px -1px 0 #1F812A;
+}
+
+.domain-mali #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #DBE235;
+	background: -webkit-linear-gradient(#CE1126 0%,#B82234 100%);
+	background: -moz-linear-gradient(#CE1126 0%,#B82234 100%);
+	background: -o-linear-gradient(#CE1126 0%,#B82234 100%);
+	background: -ms-linear-gradient(#CE1126 0%,#B82234 100%);
+	background-color: #B82234;
+}
+
+.domain-mali #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #D8A80F;
+}
+.domain-mali #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #661B1B;
+}
+.domain-mali #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #DB4444;
+}

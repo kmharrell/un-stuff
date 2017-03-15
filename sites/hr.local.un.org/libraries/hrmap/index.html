@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=EmulateIE9" dir="ltr">
+<link rel="stylesheet" href="css/jquery-ui-1.10.4.min.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">-->
+<!--<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
+
+<script src="d3/d3.v3.min.js"></script>
+<script src="d3/d3.geo.projection.v0.min.js"></script>
+<script src="d3/topojson.v1.min.js"></script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-ui-1.10.4.min.js"></script>
+
+
+<body>
+<div class="ui-widget">
+    <label for="search"></label>
+    <input class="search" id="searchOnLoad" value="Search Location" onclick="this.value=''; this.id='search'; ">
+</div>
+<div id="map"></div>
+<h1 id="currSelectedCountry"></h1>
+
+<div id="accordion">
+<h3>Post-Adjustment</h3>
+
+<div id="PA">
+    <div id="alertPA">Please select a country to view data.</div>
+    <table id="tablePA" style="display:none">
+        <thead>
+        <tr>
+            <th>Area</th>
+            <th>Exchange Rate</th>
+            <th>Index</th>
+            <th>Multiplier</th>
+            <th colspan="2">Rental Threshold Rate</th>
+            <th>Effective Since</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Dependent</td>
+            <td>Single</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody id="tbodyPA">
+        </tbody>
+    </table>
+    <p class="source" id="sourcePA"></p>
+
+</div>
+
+<h3>Daily Subsistence Allowance</h3>
+
+<div id="DSA">
+
+    <div id="alertDSA">Please select a country to view data.</div>
+
+    <table id="tableDSA" style="display:none">
+        <thead>
+        <tr>
+            <th>Country</th>
+            <th>Area</th>
+            <th>Local Currency</th>
+            <th>First 60 Days<br>DSA ($USD)</th>
+            <th>First 60 Days<br>DSA (Local)</th>
+            <th>&gt; 60 Days<br>DSA (Local)</th>
+            <th>Rooms (%DSA)</th>
+            <th>Effective Date</th>
+        </tr>
+        </thead>
+        <tbody id="tbodyDSA">
+        </tbody>
+    </table>
+    <p class="source" id="sourceDSA"></p>
+
+</div>
+
+<h3>Hardship Classification</h3>
+
+<div id="HC">
+
+    <div id="alertHC">Please select a country to view data.</div>
+
+    <table id="tableHC" style="display:none">
+        <thead>
+        <tr>
+            <th>Area</th>
+            <th>Effective Date</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+        <tbody id="tbodyHC">
+        </tbody>
+    </table>
+    <p class="source" id="sourceHC"></p>
+</div>
+
+<h3>Hardship Allowance</h3>
+
+<div class="HA">
+
+    <h2>In UN Family Duty Stations</h2>
+
+    <p><i>Annual amounts in USD; Effective 1 January 2012</i></p>
+
+    <table class="tableHA">
+        <thead>
+        <tr>
+            <th></th>
+            <th colspan="2">Group 1 (P1 to P3)</th>
+            <th colspan="2">Group 2 (P4 and P5)</th>
+            <th colspan="2">Group 3 (D1 and Above)</th>
+        </tr>
+        <tr>
+            <td>CLASSIFICATION</td>
+            <td>Dependency Status</td>
+            <td>Single Status</td>
+            <td>Dependency Status</td>
+            <td>Single Status</td>
+            <td>Dependency Status</td>
+            <td>Single Status</td>
+        </tr>
+        </thead>
+        <tbody id="tbodyHC">
+        <tr>
+            <td>H</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>5,810</td>
+            <td>4,360</td>
+            <td>6,970</td>
+            <td>5,230</td>
+            <td>8,140</td>
+            <td>6,100</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>10,470</td>
+            <td>78,40</td>
+            <td>12,780</td>
+            <td>9,590</td>
+            <td>15,110</td>
+            <td>11,340</td>
+        </tr>
+        <tr>
+            <td>D</td>
+            <td>13,950</td>
+            <td>10,470</td>
+            <td>16,280</td>
+            <td>12,210</td>
+            <td>18,590</td>
+            <td>13,950</td>
+        </tr>
+        <tr>
+            <td>E</td>
+            <td>17,440</td>
+            <td>13,080</td>
+            <td>20,920</td>
+            <td>15,690</td>
+            <td>23,250</td>
+            <td>17,440</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>In Non-Family Duty Stations</h2>
+
+    <p><i>Annual amounts in USD; Effective 1 January 2012</i></p>
+
+    <table class="tableHA" id="odd">
+        <thead>
+        <tr>
+            <th></th>
+            <th colspan="2">Group 1 (P1 to P3)</th>
+            <th colspan="2">Group 2 (P4 and P5)</th>
+            <th colspan="2">Group 3 (D1 and Above)</th>
+        </tr>
+        <tr>
+            <td>CLASSIFICATION</td>
+            <td>Dependency Status</td>
+            <td>Single Status</td>
+            <td>Dependency Status</td>
+            <td>Single Status</td>
+            <td>Dependency Status</td>
+            <td>Single Status</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>-</td>
+            <td>17,440</td>
+            <td>6,540</td>
+            <td>20,920</td>
+            <td>7.845</td>
+            <td>23,250</td>
+            <td>8,720</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="source">Source: <a href="http://icsc.un.org/secretariat/hrpd.asp?include=mah" target="_blank">http://icsc.un.org/secretariat/hrpd.asp?include=mah</a>
+    </p>
+</div>
+
+<h3>Rest & Recuperation</h3>
+
+<div id="RR">
+
+    <div id="alertRR">Please select a country to view data.</div>
+
+    <table id="tableRR" style="display:none">
+        <thead>
+        <tr>
+            <th>Country</th>
+            <th>Area</th>
+            <th>Frequency (Weeks)</th>
+            <th>R&R Destination</th>
+        </tr>
+        </thead>
+        <tbody id="tbodyRR">
+        </tbody>
+    </table>
+    <p class="source" id="sourceRR"></p>
+</div>
+
+<h3>Salary (Professional and Above)</h3>
+
+<div id="Salary">
+<h2>
+    Salary scale for the Professional and higher categories showing annual gross salaries and net equivalents after
+    application of staff assessment
+</h2>
+
+<p><i>Annual amounts in USD; Effective 1 January 2014</i></p>
+
+<table id="tableSP">
+<thead>
+<tr>
+    <td colspan="2">Level</td>
+    <td>I</td>
+    <td>II</td>
+    <td>III</td>
+    <td>IV</td>
+    <td>V</td>
+    <td>VI</td>
+    <td>VII</td>
+    <td>VIII</td>
+    <td>IX</td>
+    <td>X</td>
+    <td>XI</td>
+    <td>XII</td>
+    <td>XIII</td>
+    <td>XIV</td>
+    <td>XV</td>
+</tr>
+</thead>
+<tbody id="tbodySP">
+<tr>
+    <td>USG</td>
+    <td>Gross</td>
+    <td>189,744</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net D</td>
+    <td>146,321</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net S</td>
+    <td>131,682</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>ASG</td>
+    <td>Gross</td>
+    <td>172,436</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net D</td>
+    <td>134,205</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net S</td>
+    <td>121,527</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>D-2</td>
+    <td>Gross</td>
+    <td>141,519</td>
+    <td class="abnormal">144,521</td>
+    <td class="abnormal">147,523</td>
+    <td class="abnormal">150,549</td>
+    <td class="abnormal">153,680</td>
+    <td class="abnormal">156,810</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net D</td>
+    <td>112,309</td>
+    <td class="abnormal">114,500</td>
+    <td class="abnormal">116,692</td>
+    <td class="abnormal">118,884</td>
+    <td class="abnormal">121,076</td>
+    <td class="abnormal">123,267</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net S</td>
+    <td>103,177</td>
+    <td class="abnormal">105,026</td>
+    <td class="abnormal">106,869</td>
+    <td class="abnormal">108,706</td>
+    <td class="abnormal">110,539</td>
+    <td class="abnormal">112,360</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>D-1</td>
+    <td>Gross</td>
+    <td>129,315</td>
+    <td>131,952</td>
+    <td>134,582</td>
+    <td>137,219</td>
+    <td class="abnormal">139,858</td>
+    <td class="abnormal">142,490</td>
+    <td class="abnormal">145,129</td>
+    <td class="abnormal">147,763</td>
+    <td class="abnormal">150,414</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net D</td>
+    <td>103,400</td>
+    <td>105,325</td>
+    <td>107,245</td>
+    <td>109,170</td>
+    <td class="abnormal">111,096</td>
+    <td class="abnormal">113,018</td>
+    <td class="abnormal">114,944</td>
+    <td class="abnormal">116,867</td>
+    <td class="abnormal">118,790</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net S</td>
+    <td>95,575</td>
+    <td>97,246</td>
+    <td>98,916</td>
+    <td>100,579</td>
+    <td class="abnormal">102,241</td>
+    <td class="abnormal">103,899</td>
+    <td class="abnormal">105,549</td>
+    <td class="abnormal">107,199</td>
+    <td class="abnormal">108,844</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>P-5</td>
+    <td>Gross</td>
+    <td>106,944</td>
+    <td>109,185</td>
+    <td>111,429</td>
+    <td>113,668</td>
+    <td>115,914</td>
+    <td>118,153</td>
+    <td>120,399</td>
+    <td>122,640</td>
+    <td>124,882</td>
+    <td>127,125</td>
+    <td class="abnormal">129,367</td>
+    <td class="abnormal">131,608</td>
+    <td class="abnormal">133,852</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net D</td>
+    <td>87,069</td>
+    <td>88,705</td>
+    <td>90,343</td>
+    <td>91,978</td>
+    <td>93,617</td>
+    <td>95,252</td>
+    <td>96,891</td>
+    <td>98,527</td>
+    <td>100,164</td>
+    <td>101,801</td>
+    <td class="abnormal">103,438</td>
+    <td class="abnormal">105,074</td>
+    <td class="abnormal">106,712</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net S</td>
+    <td>80,887</td>
+    <td>82,342</td>
+    <td>83,792</td>
+    <td>85,241</td>
+    <td>86,688</td>
+    <td>88,130</td>
+    <td>89,572</td>
+    <td>91,011</td>
+    <td>92,447</td>
+    <td>93,881</td>
+    <td class="abnormal">95,313</td>
+    <td class="abnormal">96,739</td>
+    <td class="abnormal">98,167</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>P-4</td>
+    <td>Gross</td>
+    <td>88,108</td>
+    <td>90,108</td>
+    <td>92,106</td>
+    <td>94,105</td>
+    <td>96,106</td>
+    <td>98,104</td>
+    <td>100,114</td>
+    <td>102,277</td>
+    <td>104,441</td>
+    <td>106,603</td>
+    <td>108,770</td>
+    <td>110,930</td>
+    <td class="abnormal">113,095</td>
+    <td class="abnormal">115,260</td>
+    <td class="abnormal">117,425</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net D</td>
+    <td>72,605</td>
+    <td>74,185</td>
+    <td>75,764</td>
+    <td>77,343</td>
+    <td>78,924</td>
+    <td>80,502</td>
+    <td>82,083</td>
+    <td>83,662</td>
+    <td>85,242</td>
+    <td>86,820</td>
+    <td>88,402</td>
+    <td>89,979</td>
+    <td class="abnormal">91,559</td>
+    <td class="abnormal">93,140</td>
+    <td class="abnormal">94,720</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net S</td>
+    <td>67,611</td>
+    <td>69,049</td>
+    <td>70,488</td>
+    <td>71,920</td>
+    <td>73,354</td>
+    <td>74,787</td>
+    <td>76,219</td>
+    <td>77,647</td>
+    <td>79,074</td>
+    <td>80,502</td>
+    <td>81,925</td>
+    <td>83,349</td>
+    <td class="abnormal">84,773</td>
+    <td class="abnormal">86,193</td>
+    <td class="abnormal">87,613</td>
+</tr>
+<tr>
+    <td>P-3</td>
+    <td>Gross</td>
+    <td>72,411</td>
+    <td>74,262</td>
+    <td>76,114</td>
+    <td>77,962</td>
+    <td>79,815</td>
+    <td>81,665</td>
+    <td>83,514</td>
+    <td>85,368</td>
+    <td>87,218</td>
+    <td>89,068</td>
+    <td>90,922</td>
+    <td>92,770</td>
+    <td>94,623</td>
+    <td class="abnormal">96,472</td>
+    <td class="abnormal">98,322</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net D</td>
+    <td>60,205</td>
+    <td>61,667</td>
+    <td>63,130</td>
+    <td>64,590</td>
+    <td>66,054</td>
+    <td>67,515</td>
+    <td>68,976</td>
+    <td>70,441</td>
+    <td>71,902</td>
+    <td>73,364</td>
+    <td>74,828</td>
+    <td>76,288</td>
+    <td>77,752</td>
+    <td class="abnormal">79,213</td>
+    <td class="abnormal">80,674</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net S</td>
+    <td>56,198</td>
+    <td>57,542</td>
+    <td>58,889</td>
+    <td>60,232</td>
+    <td>61,579</td>
+    <td>62,922</td>
+    <td>64,265</td>
+    <td>65,612</td>
+    <td>66,955</td>
+    <td>68,300</td>
+    <td>69,640</td>
+    <td>70,982</td>
+    <td>72,319</td>
+    <td class="abnormal">73,661</td>
+    <td class="abnormal">75,001</td>
+</tr>
+<tr>
+    <td>P-2</td>
+    <td>Gross</td>
+    <td>59,387</td>
+    <td>61,043</td>
+    <td>62,697</td>
+    <td>64,354</td>
+    <td>66,010</td>
+    <td>67,663</td>
+    <td>69,322</td>
+    <td>70,973</td>
+    <td>72,629</td>
+    <td>74,287</td>
+    <td>75,941</td>
+    <td class="abnormal">77,597</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net D</td>
+    <td>49,916</td>
+    <td>51,224</td>
+    <td>52,531</td>
+    <td>53,840</td>
+    <td>55,148</td>
+    <td>56,454</td>
+    <td>57,764</td>
+    <td>59,069</td>
+    <td>60,377</td>
+    <td>61,687</td>
+    <td>62,993</td>
+    <td class="abnormal">64,302</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net S</td>
+    <td>46,819</td>
+    <td>48,006</td>
+    <td>49,189</td>
+    <td>50,375</td>
+    <td>51,559</td>
+    <td>52,745</td>
+    <td>53,949</td>
+    <td>55,151</td>
+    <td>56,358</td>
+    <td>57,561</td>
+    <td>58,761</td>
+    <td class="abnormal">59,968</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>P-1</td>
+    <td>Gross</td>
+    <td>46,487</td>
+    <td>47,968</td>
+    <td>49,442</td>
+    <td>50,995</td>
+    <td>52,582</td>
+    <td>54,173</td>
+    <td>55,766</td>
+    <td>57,359</td>
+    <td>58,946</td>
+    <td>60,537</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net D</td>
+    <td>39,514</td>
+    <td>40,773</td>
+    <td>42,026</td>
+    <td>43,286</td>
+    <td>44,540</td>
+    <td>45,797</td>
+    <td>47,055</td>
+    <td>48,314</td>
+    <td>49,567</td>
+    <td>50,824</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td>Net S</td>
+    <td>37,273</td>
+    <td>38,432</td>
+    <td>39,591</td>
+    <td>40,748</td>
+    <td>41,906</td>
+    <td>43,064</td>
+    <td>44,222</td>
+    <td>45,366</td>
+    <td>46,504</td>
+    <td>47,643</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+
+<p>D = Rate applicable to staff members with a dependent spouse or child.</p>
+
+<p>S = Rate applicable to staff members with no dependent spouse or child.</p>
+
+<p><span class="abnormal">Values in blue</span> = The normal qualifying period for in-grade movement between consecutive
+    steps is one year, except at those steps marked with blue text for which a two-year period at the preceding step is
+    required.</p>
+<p class="source">Source: <a href="http://www.un.org/Depts/OHRM/salaries_allowances/salary.htm" target="_blank">http://www.un.org/Depts/OHRM/salaries_allowances/salary.htm</a></p>
+
+
+</div>
+
+
+<h3>Salary (General Service and Related Categories)</h3>
+<div>
+    <p>The salary scales for General Service (GS) and Related Categories are being transferred to fit the format of the interactive Pay & Benefits map.
+        In the meantime, salary scales for GS and Related Categories can be viewed at:</p>
+    <p class="source"><a href="http://www.un.org/Depts/OHRM/salaries_allowances/salaries/gs.htm" target="_blank">http://www.un.org/Depts/OHRM/salaries_allowances/salaries/gs.htm</a></p>
+
+</div>
+
+<h3>Salary (Field Service Category)</h3>
+<div>
+    <p>The salary scales for the Field Service (FS) Category are being transferred to fit the format of the interactive Pay & Benefits map.
+        In the meantime, salary scales for the FS Category can be viewed at: </p>
+    <p class="source"><a href="http://www.un.org/Depts/OHRM/salaries_allowances/salary.htm#fs" target="_blank">http://www.un.org/Depts/OHRM/salaries_allowances/salary.htm#fs</a></p>
+
+</div>
+
+<h3>Disclaimer</h3>
+<div>
+    The information presented on this page is for informative purposes only.  The United Nations Office for Human Resources Management does not control or guarantee the accuracy, relevance, timeliness, or completeness of outside information linked to this page.
+</div>
+
+</div>
+
+
+</body>
+
+
+<!--
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+-->
+<script src="js/updateAll.js"></script>
+<script src="js/dataLoader.js"></script>
+<script src="js/bootstrap.js"></script>
+

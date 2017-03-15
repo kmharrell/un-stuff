@@ -1,0 +1,35 @@
+.domain-malaysia a {
+	color: #CE0A0A;
+}
+.domain-malaysia .navigation{
+	background: url(/sites/www.un.int/themes/bootstrap/custom/missions_css/images/menu_item.png) repeat-x;
+	border-top: 1px solid #FF5757;
+	
+}
+.domain-malaysia #navbar .navigation li a{
+	background: url(/sites/www.un.int/themes/bootstrap/custom/missions_css/images/menu_separator.png) no-repeat right top;
+	text-shadow: -1px -1px 0 #A92009;
+	color: white;
+	border: 0px;
+}
+
+.domain-malaysia #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #5369D8;
+	background: -webkit-linear-gradient(#FFF 0%,#F7F7F7 100%);
+	background: -moz-linear-gradient(#FFF 0%,#F7F7F7 100%);
+	background: -o-linear-gradient(#FFF 0%,#F7F7F7 100%);
+	background: -ms-linear-gradient(#FFF 0%,#F7F7F7 100%);
+	background-color: #FFF;
+}
+.domain-malaysia #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #F8F8F8;
+}
+.domain-malaysia #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #D6D6D6;
+	text-shadow: 0 1px 1px #FFF;
+	color: #464646;
+}
+
+.domain-malaysia #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #16267A;
+}

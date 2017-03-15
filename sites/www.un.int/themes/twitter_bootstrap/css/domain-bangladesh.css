@@ -1,0 +1,27 @@
+/**** Red ****/
+body.domain-bangladesh{
+	background: #ECDACB;
+}
+.domain-bangladesh a {
+	color: #016801;
+}
+.domain-bangladesh .navigation{
+	background: url(../custom/images/menu_item.png) repeat-x;
+	border-top: 1px solid #FF5757;
+	border-bottom: 1px solid #FF5757;
+}
+.domain-bangladesh .navigation li a{
+	background: url(../custom/images/menu_separator.png) no-repeat right top;
+	text-shadow: -1px -1px 0 #A92009;
+	color: white;
+	border: 0px;
+}
+.domain-bangladesh .secondary-navigation{
+	border-top: 4px solid #D50505;
+	background: -webkit-linear-gradient(#016801 0%, #004B00 100%);
+}
+.domain-bangladesh .secondary-navigation li {
+	border-right: 1px solid #0F8126;
+}
+
+/***********************/

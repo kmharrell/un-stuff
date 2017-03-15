@@ -1,0 +1,49 @@
+.domain-honduras a {
+	color: #012a87;
+}
+.domain-honduras .navigation{
+	background: -webkit-linear-gradient(#0C127A 0%, #0C0D2B 100%);	
+	background: -moz-linear-gradient(#0C127A 0%, #0C0D2B 100%);
+	background: -o-linear-gradient(#0C127A 0%, #0C0D2B 100%);
+	background: -ms-linear-gradient(#0C127A 0%, #0C0D2B 100%);
+	background-color: #0C127A;
+	border-top: 1px solid #102DFF;
+}
+
+
+.domain-honduras #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #4D568A;
+	background: -webkit-linear-gradient(#FFF 0%, #ECECEC 100%);
+	background: -moz-linear-gradient(#FFF 0%, #ECECEC 100%);
+	background: -o-linear-gradient(#FFF 0%, #ECECEC 100%);
+	background: -ms-linear-gradient(#FFF 0%, #ECECEC 100%);
+	background-color: #FFF;
+}
+.domain-honduras #navbar .navigation li a{
+	border-right: 1px solid #234375;
+}
+.domain-honduras #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #3A4270;
+}
+.domain-honduras #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #444A8B;
+}
+.domain-honduras #navbar .navigation #block-views-about-mission-block-4 li a {
+	color: #111550;
+}
+
+.domain-honduras a {
+	color: #0C127A;
+}
+.domain-honduras .calendar-calendar .has-events {
+	background: #5068A0;
+}
+.domain-honduras .calendar-calendar .has-events a{
+	color: #fff;
+	text-decoration: none;
+}
+
+.domain-honduras .page-media .field-name-field-media-video-name a, .domain-honduras .page-media .field-name-field-media-album-name a{
+	color: #fff;
+}
+/***********************/

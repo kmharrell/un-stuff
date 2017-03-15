@@ -1,0 +1,37 @@
+body.domain-brazil {
+	background-color: #EFF5EE;
+}
+.domain-brazil  a {
+	color: #19882C;
+}
+.domain-brazil  .navigation{
+	background: -webkit-linear-gradient(#19882C  0%,#03490F 100%);
+	background: -moz-linear-gradient(#19882C  0%,#03490F 100%);
+	background: -o-linear-gradient(#19882C  0%,#03490F 100%);
+	background: -ms-linear-gradient(#19882C  0%,#03490F 100%);
+	background-color: #0A5517;
+	border-top: 1px solid #0A5517;
+}
+.domain-brazil  #navbar .navigation li a{
+	text-shadow: -1px -1px 0 #1D5917;
+	border-right: 1px solid #105F1A;
+}
+
+.domain-brazil  #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #FFF200;
+	background: -webkit-linear-gradient(#0A5517 0%,#07340E 100%);
+	background: -moz-linear-gradient(#0A5517 0%,#07340E 100%);
+	background: -o-linear-gradient(#0A5517 0%,#07340E 100%);
+	background: -ms-linear-gradient(#0A5517 0%,#07340E 100%);
+	background-color: #0A5517;
+}
+
+.domain-brazil  #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #FFDC19;
+}
+.domain-brazil  #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #0F4A12;
+}
+.domain-brazil #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #041203;
+}

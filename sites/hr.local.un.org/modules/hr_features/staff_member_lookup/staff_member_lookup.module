@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Staff Member Lookup feature.
+ */
+
+include_once 'staff_member_lookup.features.inc';

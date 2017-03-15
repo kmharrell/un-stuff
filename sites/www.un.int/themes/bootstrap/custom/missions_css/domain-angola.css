@@ -1,0 +1,37 @@
+/**** Red ****/
+.domain-angola a {
+	color: #8B4E4E;
+}
+.domain-angola .navigation{
+	background: url(http://www.un.int/angola/sites/www.un.int/themes/bootstrap/custom/missions_css/images/menu_item.png) repeat-x;
+	border-top: 1px solid #FF5757;
+	
+}
+.domain-angola #navbar .navigation li a{
+	background: url(http://www.un.int/angola/sites/www.un.int/themes/bootstrap/custom/missions_css/images/menu_separator.png) no-repeat right top;
+	text-shadow: -1px -1px 0 #A92009;
+	color: #faf913;
+	border: 0px;
+}
+
+.domain-angola #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #FF5757;
+	background: -webkit-linear-gradient(#363636 0%, #2C2C2C 100%);
+	background: -moz-linear-gradient(#363636 0%, #2C2C2C 100%);
+	background: -o-linear-gradient(#363636 0%, #2C2C2C 100%);
+	background: -ms-linear-gradient(#363636 0%, #2C2C2C 100%);
+	background-color: #2C2C2C;
+}
+.domain-angola #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #D50505;
+}
+
+
+.domain-angola .calendar-calendar .has-events {
+	background: #E24646;
+}
+.domain-angola .calendar-calendar .has-events a{
+	color: #fff;
+	text-decoration: none;
+}
+/***********************/

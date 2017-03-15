@@ -1,0 +1,268 @@
+body {
+  font-family: 'Century Gothic',Verdana,arial,sans-serif;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+.ui-widget {
+  font-family: 'Century Gothic',Verdana,arial,sans-serif;
+}
+
+.background {
+  fill: none;
+  pointer-events: all;
+}
+
+#map {
+  overflow: hidden;
+}
+
+.country, .jerusalem {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+div.tooltip {
+  color: #222;
+  background: #fff;
+  padding: .5em;
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px 0px #a6a6a6;
+  opacity: 0.9;
+  position: absolute;
+  height: 16px;
+}
+
+.ui-widget {
+  position: absolute;
+}
+
+.search {
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555;
+  vertical-align: middle;
+  background-color: #FFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+#searchOnLoad {
+  color: #808080;
+  font-style: italic;
+  font-weight: lighter;
+  font-size: 12px;
+}
+
+body .zoomBox {
+  position: absolute;
+  top: 50px;
+  left: 2px;
+}
+
+.zoomBox button {
+  float: left;
+  clear: both;
+}
+
+button.ui-button {
+  background-color: rgba(255, 255, 255, .8);
+  width: 60px;
+  padding: 0;
+}
+
+button span.ui-button-text {
+  font-size: 15px;
+
+}
+
+button .ui-button-text-only .ui-button-text {
+  text-align: center;
+  padding: 0 0;
+  margin: 5px;
+
+  padding: 0 9px;
+  width: 0px;
+  text-align: center;
+
+}
+
+.country {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: .1px;
+  stroke-linejoin: round;
+}
+
+#currSelectedCountry {
+  color: #6999c9;
+  font-weight: normal;
+  position: absolute;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, .8);
+  padding: 5px 10px;
+  margin-left: -10px;
+  margin-top: -50px;
+}
+
+#accordion {
+  width: 100%;
+  max-width: 1026px;
+  display: block;
+}
+#alertPA, #alertDSA, #alertHC, #alertRR {
+  font-style: italic;
+}
+
+table {
+  border-collapse: collapse;
+  border: 0;
+  padding: 0;
+  margin-bottom: 3em;
+  font-family: 'Century Gothic',Verdana,arial,sans-serif;
+}
+
+thead {
+  padding-bottom: 1em;
+}
+
+th, td {
+  padding: 0 20px;
+  margin: 0 20px;
+  max-width: 100px;
+  vertical-align: middle;
+  font-size: 0.8em;
+}
+
+thead tr th,
+thead tr td {
+  color: #999;
+  font-weight: normal;
+  text-align: left;
+  font-size: .8em;
+}
+
+#PA table tbody tr td:nth-child(1) {
+  width: 35%;
+}
+
+#RR table tbody tr td:nth-child(2) {
+  min-width: 35%;
+  max-width: 50%;
+}
+
+#PA table thead tr td:nth-child(5),
+#PA table thead tr td:nth-child(6),
+#PA table tbody tr td:nth-child(5),
+#PA table tbody tr td:nth-child(6),
+#DSA table thead tr th:nth-child(4),
+#DSA table thead tr th:nth-child(5),
+#DSA table thead tr th:nth-child(6),
+#HC table thead tr th:nth-child(3),
+.HA table thead tr td:nth-child(1),
+#RR table thead tr th:nth-child(4),
+#Salary table thead tr th:nth-child(1),
+#Salary table tbody tr td:nth-child(1){
+  color: #6999c9;
+}
+
+#DSA table tbody tr td:nth-child(4),
+#DSA table tbody tr td:nth-child(5),
+#DSA table tbody tr td:nth-child(6),
+#tableHC tbody tr td:nth-child(3),
+.HA table tbody tr td:nth-child(1),
+#RR table tbody tr td:nth-child(4){
+  color: #6999c9;
+  font-weight: lighter;
+}
+
+#PA table tbody tr td:nth-child(n+2),
+#DSA table thead tr th:nth-child(n+4),
+#DSA table tbody tr td:nth-child(n+4),
+.HA table thead tr th,
+#Salary table tbody tr td:nth-child(n+3)
+{
+}
+
+#PA table tbody tr td:nth-child(n+2),
+#RR table tbody tr td:nth-child(3) {
+  font-weight: lighter;
+}
+
+#PA table tbody tr td:nth-child(7) {
+  font-size: 1em;
+}
+
+#HC table tbody tr td:nth-child(3),
+.HA table tbody tr td:nth-child(1),
+#RR table tbody tr td:nth-child(3),
+#Salary table thead tr th:nth-child(n+2){
+  text-align: center;
+}
+
+tbody tr:nth-child(even),
+#odd.tableHA tbody tr:nth-child(odd) {
+  background-color: #fefefe;
+}
+
+#odd.tableHA thead tr td,
+#tableRR thead th,
+#Salary thead th {
+  padding-bottom: 15px;
+}
+
+.HA table thead tr th {
+  font-size: 1em;
+  font-weight: lighter;
+  text-align: left;
+}
+
+.HA table thead tr th:nth-child(3),
+.HA table thead tr td:nth-child(4),
+.HA table thead tr td:nth-child(5),
+#Salary table tbody tr td:nth-child(2) {
+  color: grey;
+}
+
+.HA table thead tr th:nth-child(4),
+.HA table thead tr td:nth-child(6),
+.HA table thead tr td:nth-child(7) {
+  color: dimgrey;
+}
+
+#Salary tbody tr:nth-child(even) {
+  background-color: #eee;
+}
+
+#Salary tbody tr:nth-child(6n-5),
+#Salary tbody tr:nth-child(6n-4),
+#Salary tbody tr:nth-child(6n-3) {
+  background-color: #fefefe;
+}
+
+#Salary table tbody tr td:nth-child(2) {
+  min-width: 40px !important;
+}
+
+.abnormal {
+  color: #6999c9;
+}
+
+.source a {
+  font-style: italic;
+  text-decoration: none;
+}
+.source a:hover{
+  color:#6999c9
+}

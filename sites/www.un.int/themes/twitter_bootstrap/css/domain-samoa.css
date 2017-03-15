@@ -1,0 +1,26 @@
+.domain-samoa a {
+	color: #012a87;
+}
+.domain-samoa .navigation{
+	background: -webkit-linear-gradient(#0B48D3 0%, #012A87 100%);
+	border-top: 1px solid #012A87;
+	border-bottom: 1px solid #0B48D3;
+}
+
+.domain-samoa .secondary-navigation{
+	border-top: 4px solid #162A5A;
+	background: -webkit-linear-gradient(#DC171D 0%, #A3171B 100%);
+}
+
+.domain-samoa .calendar-calendar .has-events {
+	background: #5068A0;
+}
+.domain-samoa .calendar-calendar .has-events a{
+	color: #fff;
+	text-decoration: none;
+}
+
+.domain-samoa .page-media .field-name-field-media-video-name a, .domain-samoa .page-media .field-name-field-media-album-name a{
+	color: #fff;
+}
+/***********************/

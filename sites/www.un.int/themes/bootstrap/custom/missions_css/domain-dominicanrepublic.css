@@ -1,0 +1,18 @@
+.domain-dominicanrepublic #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #768CA2;
+	background: -webkit-linear-gradient(#F00 0%,#C70000 100%);
+	background: -moz-linear-gradient(#F00 0%,#C70000 100%);
+	background: -o-linear-gradient(#F00 0%,#C70000 100%);
+	background: -ms-linear-gradient(#F00 0%,#C70000 100%);
+	background-color: #F00;
+}
+.domain-dominicanrepublic #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #A22121;
+}
+.domain-dominicanrepublic #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #FF3C3C;
+}
+.domain-dominicanrepublic #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #fff;
+}
+/***********************/

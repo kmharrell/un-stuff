@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Learning Catalogue feature.
+ */
+
+include_once 'learning_catalogue.features.inc';

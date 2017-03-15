@@ -1,0 +1,373 @@
+[
+  {
+    "country":"Afghanistan",
+    "area":"Entire country",
+    "freq":6,
+    "destination":"Dubai",
+    "id":4
+  },
+  {
+    "country":"Algeria",
+    "area":"Tindouf",
+    "freq":8,
+    "destination":"Las Palmas",
+    "id":12
+  },
+  {
+    "country":"Burkina Faso",
+    "area":"Dori",
+    "freq":12,
+    "destination":"Ouagadougou",
+    "id":854
+  },
+  {
+    "country":"Burundi",
+    "area":"Ngozi",
+    "freq":12,
+    "destination":"Nairobi",
+    "id":108
+  },
+  {
+    "country":"Central African Republic",
+    "area":"Entire country",
+    "freq":6,
+    "destination":"Yaoundé",
+    "id":140
+  },
+  {
+    "country":"Chad",
+    "area":"Abeche, Farchana, Gozbeida, Koukou, Mao, N‰Ûªdjamena",
+    "freq":8,
+    "destination":"Addis Ababa",
+    "id":148
+  },
+  {
+    "country":"Colombia",
+    "area":"Quibdo",
+    "freq":12,
+    "destination":"Bogota",
+    "id":170
+  },
+  {
+    "country":"Cote D'Ivoire",
+    "area":"Entire country except Abidjan and Yamoussoukro",
+    "freq":8,
+    "destination":"Accra",
+    "id":384
+  },
+  {
+    "country":"Democratic Republic Of The Congo",
+    "area":"Aru, Beni, Bukavu, Bunia, Butembo, Dungu, Goma, Kalemie, Mahagi, Uvira",
+    "freq":6,
+    "destination":"Entebbe",
+    "id":180
+  },
+  {
+    "country":"Democratic Republic Of The Congo",
+    "area":"Bandundu, Gemena, Kamina, Kananga, Kindu, Kinshasa, Kisangani, Matadi, Mbandaka, Mbuji-Mayi",
+    "freq":8,
+    "destination":"Entebbe",
+    "id":180
+  },
+  {
+    "country":"Democratic Republic Of The Congo",
+    "area":"Lubumbashi",
+    "freq":12,
+    "destination":"Entebbe",
+    "id":180
+  },
+  {
+    "country":"Korea, Democratic People's Republic of",
+    "area":"Pyongyang",
+    "freq":8,
+    "destination":"Beijing",
+    "id":408
+  },
+  {
+    "country":"Ethiopia",
+    "area":"Gode",
+    "freq":6,
+    "destination":"Addis Ababa",
+    "id":231
+  },
+  {
+    "country":"Ethiopia",
+    "area":"Jijiga",
+    "freq":8,
+    "destination":"Addis Ababa",
+    "id":231
+  },
+  {
+    "country":"Gaza",
+    "area":"Gaza (entire)",
+    "freq":8,
+    "destination":"Amman",
+    "id":275
+  },
+  {
+    "country":"Guinea-Bissau",
+    "area":"Bissau, Bafata, Buba",
+    "freq":12,
+    "destination":"Dakar",
+    "id":624
+  },
+  {
+    "country":"Haiti",
+    "area":"Entire country",
+    "freq":8,
+    "destination":"Santo Domingo",
+    "id":332
+  },
+  {
+    "country":"Iraq",
+    "area":"Baghdad, Basrah, Kirkuk",
+    "freq":4,
+    "destination":"Amman",
+    "id":368
+  },
+  {
+    "country":"Iraq",
+    "area":"Erbil",
+    "freq":8,
+    "destination":"Amman",
+    "id":368
+  },
+  {
+    "country":"Kenya",
+    "area":"Dadaab",
+    "freq":6,
+    "destination":"Nairobi",
+    "id":404
+  },
+  {
+    "country":"Kyrgystan",
+    "area":"Osh",
+    "freq":8,
+    "destination":"Istanbul",
+    "id":417
+  },
+  {
+    "country":"Liberia",
+    "area":"Entire country",
+    "freq":8,
+    "destination":"Accra",
+    "id":430
+  },
+  {
+    "country":"Libya",
+    "area":"Benghazi, Sebha, Tripoli",
+    "freq":6,
+    "destination":"Malta",
+    "id":434
+  },
+  {
+    "country":"Mali",
+    "area":"Gao, Kidal, Tessalit",
+    "freq":4,
+    "destination":"Dakar",
+    "id":466
+  },
+  {
+    "country":"Mali",
+    "area":"Tombouctou",
+    "freq":6,
+    "destination":"Dakar",
+    "id":466
+  },
+  {
+    "country":"Mali",
+    "area":"Bamako, Kayes, Mopti,",
+    "freq":8,
+    "destination":"Dakar",
+    "id":466
+  },
+  {
+    "country":"Mauritania",
+    "area":"Nema",
+    "freq":8,
+    "destination":"Nouakchott",
+    "id":478
+  },
+  {
+    "country":"Myanmar",
+    "area":"Myitkyina (Kachin State), Sittwe",
+    "freq":12,
+    "destination":"Yangon",
+    "id":104
+  },
+  {
+    "country":"Nepal",
+    "area":"Bharatpur, Bidur, Charikot, Dhunche, Gorkha, Manthali",
+    "freq":12,
+    "destination":"Kathmandu",
+    "id":524
+  },
+  {
+    "country":"Niger",
+    "area":"Maradi, Tahoua, Zinder",
+    "freq":12,
+    "destination":"Niamey",
+    "id":562
+  },
+  {
+    "country":"Nigeria",
+    "area":"Bauchi, Gombe, Kaduna, Yola",
+    "freq":8,
+    "destination":"Accra",
+    "id":566
+  },
+  {
+    "country":"Nigeria",
+    "area":"Maiduguri",
+    "freq":6,
+    "destination":"Accra",
+    "id":566
+  },
+  {
+    "country":"Pakistan",
+    "area":"Peshawar",
+    "freq":6,
+    "destination":"Dubai",
+    "id":586
+  },
+  {
+    "country":"Pakistan",
+    "area":"Islamabad",
+    "freq":8,
+    "destination":"Dubai",
+    "id":586
+  },
+  {
+    "country":"Papua New Guinea",
+    "area":"Port Moresby",
+    "freq":12,
+    "destination":"Brisbane",
+    "id":598
+  },
+  {
+    "country":"Philippines",
+    "area":"Guian, Ormoc, Roxas, Tacloban, Tagbilaran City",
+    "freq":4,
+    "destination":"Manila",
+    "id":608
+  },
+  {
+    "country":"Philippines",
+    "area":"Cebu, Cotabato City, Iligan City, Zamboanga City,",
+    "freq":8,
+    "destination":"Manila",
+    "id":608
+  },
+  {
+    "country":"Philippines",
+    "area":"Cateel, Puerto Princesa City",
+    "freq":12,
+    "destination":"Manila",
+    "id":608
+  },
+  {
+    "country":"Serbia",
+    "area":"Kosovska/Mitrovica",
+    "freq":8,
+    "destination":"Ljubljana",
+    "id":688
+  },
+  {
+    "country":"Sierra Leone",
+    "area":"Bo, Kenema",
+    "freq":12,
+    "destination":"Accra",
+    "id":694
+  },
+  {
+    "country":"Somalia",
+    "area":"Baidao, Boosaaso, Garowe, Kisimaio, Mogadiscio",
+    "freq":4,
+    "destination":"Nairobi",
+    "id":706
+  },
+  {
+    "country":"Somalia",
+    "area":"Hargeisa",
+    "freq":6,
+    "destination":"Nairobi",
+    "id":706
+  },
+  {
+    "country":"South Sudan",
+    "area":"Akobo, Akon, Aweil, Bentiu, Bor, Boro Medina, Bunj, Gendrassa, Gokmachar, Jamjang, Jamam, Juba, Kwacjok, Maban, Malakal, Melut, Paryang, Pibor, Pulmok, Rumbek, Tambura, Wunrok, Yei, Yida, Yirol, Yuai",
+    "freq":6,
+    "destination":"Entebbe",
+    "id":728
+  },
+  {
+    "country":"South Sudan",
+    "area":"Rest of country",
+    "freq":8,
+    "destination":"Entebbe",
+    "id":728
+  },
+  {
+    "country":"Sri Lanka",
+    "area":"Kilinochichi",
+    "freq":8,
+    "destination":"Colombo",
+    "id":144
+  },
+  {
+    "country":"Sudan",
+    "area":"Abyei, Buram (S. Darfur), Ed Al Fursan (S. Darfur), El DaÕein (Darfur), El Fasher (Darfur), El Geneima (Darfur), Forobaranga (W.Darfur), Gereida (S.Darfur), Habila Kabkabiya (Darfur), Kadugli, Khor Abeche (S.Darfur), Khor Omer, Kulbus (Darfur), Kutum (Darfur), Labado (S.Darfur), Mallit (N.Darfur), Manawashi, Marla (S.Darfur), Masteri (W.Darfur), Mornie (W.Darfur), Muhajiriya, Muglad (Southern Kordofan), Mukjar (Darfur), Nertiti (W.Darfur), Nyala (Darfur), Saraf Omra/Umra (N.Darfur), Shangil Tobayo (N.Darfur), Sheiria (S.Darfur), Tawilla, Um Baro (W.Darfur), Um Kaddada (N.Darfur), Zalingei (Darfur), Zam Zam (N.Darfur)",
+    "freq":6,
+    "destination":"Entebbe",
+    "id":729
+  },
+  {
+    "country":"Sudan",
+    "area":"Damazine",
+    "freq":8,
+    "destination":"Entebbe",
+    "id":729
+  },
+  {
+    "country":"Sudan",
+    "area":"Port Sudan",
+    "freq":12,
+    "destination":"Entebbe",
+    "id":729
+  },
+  {
+    "country":"Syria",
+    "area":"Entire country",
+    "freq":4,
+    "destination":"Amman",
+    "id":760
+  },
+  {
+    "country":"Uganda",
+    "area":"Moroto",
+    "freq":8,
+    "destination":"Kampala",
+    "id":800
+  },
+  {
+    "country":"Uganda",
+    "area":"Kitgum",
+    "freq":12,
+    "destination":"Kampala",
+    "id":800
+  },
+  {
+    "country":"West Bank",
+    "area":"Ramallah",
+    "freq":8,
+    "destination":"Amman",
+    "id":275
+  },
+  {
+    "country":"Yemen",
+    "area":"Haradh, Sana'a",
+    "freq":6,
+    "destination":"Larnaca",
+    "id":887
+  }
+]

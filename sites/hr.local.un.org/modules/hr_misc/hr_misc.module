@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function hr_misc_element_info_alter(&$type) {
+  if (isset($type['plupload'])) {
+    $type['plupload']['#process'][] = 'hr_misc_plupload_element_process';
+  }
+}
+
+/**
+ * Process plupload element.
+ */
+function hr_misc_plupload_element_process($element) {
+  // Remove extension validation if using IMCE.
+  if (isset($element['#upload_validators']['imce_validate_all'])) {
+    unset($element['#upload_validators']['file_validate_extensions']);
+  }
+  return $element;
+}

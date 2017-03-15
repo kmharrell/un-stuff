@@ -1,0 +1,142 @@
+<?php
+/**
+ * @file
+ * Code for the HR Document feature.
+ */
+
+include_once 'hr_document.features.inc';
+
+
+function hr_document_menu() {
+  $items['handbook/index'] = array(
+    'title' => 'HR Handbook by Index',
+    'description' => 'HR Handbook Documents sorted by Index',
+    'page callback' => 'hr_document_handbook_by_index',
+    'access arguments' => array('access content'),
+  );
+  return $items;
+}
+
+function hr_document_handbook_by_index() {
+  $index = hr_document_handbook_index_query();
+  $html = "";
+
+  $html .= '<div id="top">';
+
+  // Cycle through for the top index links.
+  $html .= '<div id="handbook-index-initials">';
+  foreach ($index as $initial => $docs) {
+    $html .= '<a class="handbook-index-initial" id="handbook-index-initial-'.$initial.'" href="#handbook-index-table-'.$initial.'">'
+      .$initial.'</a>';
+  }
+  $html .= '</div>';
+
+  // Cycle through for the documents.
+  foreach ($index as $initial => $docs) {
+    $html .= '<div class="handbook-index-section" id="handbook-index-section-'.$initial.'">';
+    $html .= '<h2 class="handbook-index-subtitle">'.$initial.'</h2>';
+    $html .= '<div class="handbook-back"><a href="#top">Back to Top</a></div>';
+
+    $html .= '<div class="handbook-index-table" id="handbook-index-table-'.$initial.'">';
+
+    // Make columnar layout.
+    // Start with column one.
+    $html .= '<ul class="handbook-index-column column-1">';
+    foreach ($docs as $delta => $doc) {
+      if (ceil(count($docs)/2) == $delta) {
+        $html .= '</ul><ul class="handbook-index-column column-2">';
+      }
+      $html .= '<li class="handbook-index-item">'
+        .l($doc->name, 'handbook/index/'.$doc->tids).'</li>';
+    }
+    $html .= '</ul>';
+
+    $html .= '</div></div>';
+
+
+    // Make columnar layout.
+  }
+  $html .= '</div>';
+  return $html;
+}
+function hr_document_handbook_index_query() {
+  global $language;
+
+  $cid = 'handbook_index';
+  static $rows;
+
+  if (!isset($rows)) {
+    $rows = array();
+
+    $query = db_select('taxonomy_term_data', 't');
+      $query->addExpression('GROUP_CONCAT(DISTINCT t.tid SEPARATOR \',\')', 'tids');
+      $query->addExpression('IFNULL(n.name_field_value, t.name)', 'name');
+      $query->innerJoin('field_data_name_field', 'n', 'n.entity_id = t.tid AND n.entity_type = \'taxonomy_term\'');
+      $query->innerJoin('field_data_field_hrdoc_topic', 'hrdoc', 'hrdoc.field_hrdoc_topic_tid = t.tid');
+      //$query->condition('n.language', $language->language);
+      $query->condition('n.language', array($language->language, LANGUAGE_NONE));
+      $query->condition('t.vid', 7);
+      $query->groupBy('name');
+      $query->orderBy('name', 'ASC');
+      //$query->range(0, 100);
+
+      $result = $query->execute();
+      foreach ($result as $record) {
+        $first_letter = strtoupper(substr($record->name, 0, 1));
+
+        $rows[$first_letter][] = $record;
+      }
+
+      cache_set($cid, $rows, 'cache', (time()+86400));
+  }
+
+  return $rows;
+}
+/*
+function hr_document_handbook_index_query() {
+  global $language;
+
+  $cid = 'handbook_index';
+  static $rows;
+
+  if (!isset($rows)) {
+    $rows = array();
+
+    $cache = cache_get($cid);
+    if (empty($cache->data)) {
+      $query = db_select('taxonomy_term_data', 't');
+      $query->addExpression('GROUP_CONCAT(DISTINCT t.tid SEPARATOR \',\')', 'tids');
+      $query->addExpression('IFNULL(n.name_field_value, t.name)', 'name');
+      $query->innerJoin('field_data_name_field', 'n', 'n.entity_id = t.tid AND n.entity_type = \'taxonomy_term\'');
+      $query->innerJoin('field_data_field_hrdoc_topic', 'hrdoc', 'hrdoc.field_hrdoc_topic_tid = t.tid');
+      $query->condition('n.language', $language->language);
+      $query->condition('t.vid', 7);
+      $query->groupBy('name');
+      $query->orderBy('name', 'ASC');
+      //$query->range(0, 100);
+
+      $result = $query->execute();
+      foreach ($result as $record) {
+        $first_letter = strtoupper(substr($record->name, 0, 1));
+
+        $rows[$first_letter][] = $record;
+      }
+
+      cache_set($cid, $rows, 'cache', (time()+86400));
+    }
+    else {
+      $rows = $cache->data;
+    }
+  }
+
+  return $rows;
+}
+*/
+
+function hr_document_views_pre_render(&$view) {
+  if ($view->name == 'handbook_index_subtopics') {
+    $tid = explode(',', $view->args[0])[0];
+    $term = taxonomy_term_load($tid);
+    $view->build_info['title'] = $term->name;
+  }
+}

@@ -1,0 +1,36 @@
+body.domain-haiti{
+	background-color: #EAEAF6;
+}
+.domain-haiti a {
+	color: #203BA7;
+}
+.domain-haiti .navigation{
+	background: -webkit-linear-gradient(#00209F 0%,#162255 100%);
+	background: -moz-linear-gradient(#00209F 0%,#162255 100%);
+	background: -o-linear-gradient(#00209F 0%,#162255 100%);
+	background: -ms-linear-gradient(#00209F 0%,#162255 100%);
+	background-color: #00209F;
+	border-top: 1px solid #001FFF;
+}
+.domain-haiti #navbar .navigation li a{
+	border-right: 1px solid #264DC9;
+}
+
+.domain-haiti #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #3D6EEB;
+	background: -webkit-linear-gradient(#D21034 0%,#97243A 100%);
+	background: -moz-linear-gradient(#D21034 0%,#97243A 100%);
+	background: -o-linear-gradient(#D21034 0%,#97243A 100%);
+	background: -ms-linear-gradient(#D21034 0%,#97243A 100%);
+	background-color: #D21034;
+}
+
+.domain-haiti #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #29398A;
+}
+.domain-haiti #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #661B1B;
+}
+.domain-haiti #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #DB4444;
+}

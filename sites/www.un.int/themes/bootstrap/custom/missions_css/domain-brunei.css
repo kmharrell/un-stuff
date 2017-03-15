@@ -1,0 +1,25 @@
+.domain-brunei a {
+	color: #79751D;
+}
+.domain-brunei .navigation{
+	background: -webkit-linear-gradient(#FFF500 0%,#B49B17 100%);
+	background: -moz-linear-gradient(#FFF500 0%,#B49B17 100%);
+	background: -o-linear-gradient(#FFF500 0%,#B49B17 100%);
+	background: -ms-linear-gradient(#FFF500 0%,#B49B17 100%);
+	background-color: #FFF500;
+	border-top: 1px solid #C1C728;
+	
+}
+
+.domain-brunei #navbar .navigation li a{
+	text-shadow: -1px -1px 0 #FFDF00;
+	color: #383838;
+	border-right: 1px solid #C1C728;
+}
+
+.domain-brunei #navbar .navigation #block-views-about-mission-block-4 {
+	border-top: 1px solid #B8B277;
+}
+.domain-brunei #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #fff;
+}

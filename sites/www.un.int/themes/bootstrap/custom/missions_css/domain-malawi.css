@@ -1,0 +1,36 @@
+body.domain-malawi{
+	background-color: #F5E4E4;
+}
+.domain-malawi a {
+	color: #B10909;
+}
+.domain-malawi .navigation{
+	background: -webkit-linear-gradient(#363636 0%,#2C2C2C 100%);
+	background: -moz-linear-gradient(#363636 0%,#2C2C2C 100%);
+	background: -o-linear-gradient(#363636 0%,#2C2C2C 100%);
+	background: -ms-linear-gradient(#363636 0%,#2C2C2C 100%);
+	background-color: #363636;
+	border-top: 1px solid #BD8D8D;
+	
+}
+.domain-malawi #navbar .navigation li a{
+	border-right: 1px solid #1F1E1E;
+	text-shadow: -1px -1px 0 #344357;
+}
+
+.domain-malawi #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #F00;
+	background: -webkit-linear-gradient(#1CB634 0%,#329623 100%);
+	background: -moz-linear-gradient(#1CB634 0%,#329623 100%);
+	background: -o-linear-gradient(#1CB634 0%,#329623 100%);
+	background: -ms-linear-gradient(#1CB634 0%,#329623 100%);
+	background-color: #1CB634;
+}
+.domain-malawi #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #91CA9A;
+}
+.domain-malawi #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #DA2929;
+}
+
+/***********************/

@@ -1,0 +1,43 @@
+body.domain-azerbaijan {
+    background-color: #F1F5FD;
+}
+.domain-azerbaijan a{
+	color: #009e60;
+}
+.domain-azerbaijan #navbar .navigation {
+	background: -webkit-linear-gradient(#042A84 0%,#0E1934 100%);
+	background: -moz-linear-gradient(#042A84 0%,#0E1934 100%);
+	background: -o-linear-gradient(#042A84 0%,#0E1934 100%);
+	background: -ms-linear-gradient(#042A84 0%,#0E1934 100%);
+	background-color: #042A84;
+	border-top: 1px solid #0F1F44;
+}
+.domain-azerbaijan #navbar .navigation li a {
+	text-shadow: -1px -1px 0 #071944;
+	border-right: 1px solid #040F28;
+}
+
+.domain-azerbaijan #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #FF9191;
+	background: -webkit-linear-gradient(#149653 0%,#097C42 100%);
+	background: -moz-linear-gradient(#149653 0%,#097C42 100%);
+	background: -o-linear-gradient(#149653 0%,#097C42 100%);
+	background: -ms-linear-gradient(#149653 0%,#097C42 100%);
+	background-color: #149653;
+}
+.domain-azerbaijan #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #0B562F;
+}
+.domain-azerbaijan #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #149653;
+}
+.domain-azerbaijan #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #dc1614;
+}
+aside.span3 {
+    display: none;
+}
+#block-views-mission-staff-block-1 .block-title {
+    display: none;
+}
+/***********************/

@@ -1,0 +1,36 @@
+body.domain-ecuador{
+	background-color: #F9FADA;
+}
+.domain-ecuador a {
+	color: #CE0A0A;
+}
+.domain-ecuador .navigation{
+	background: -webkit-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background: -moz-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background: -o-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background: -ms-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background-color: #FD0;
+	border-top: 1px solid #D1CA1C;
+	
+}
+.domain-ecuador #navbar .navigation li a{
+	border-right: 1px solid #A89E22;
+	text-shadow: -1px -1px 0 #696920;
+}
+
+.domain-ecuador #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #007BFD;
+	background: -webkit-linear-gradient(#EE1B24 0%, #CA131B 100%);
+	background: -moz-linear-gradient(#EE1B24 0%, #CA131B 100%);
+	background: -o-linear-gradient(#EE1B24 0%, #CA131B 100%);
+	background: -ms-linear-gradient(#EE1B24 0%, #CA131B 100%);
+	background-color: #EE1B24;
+}
+.domain-ecuador #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #E67D7D;
+}
+.domain-ecuador #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #024F9C;
+}
+
+/***********************/

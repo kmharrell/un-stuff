@@ -1,0 +1,5 @@
+name = HR Job Code Search
+description = HR Portal Job Code Search
+core = 7.x
+package = HR
+version = 7.x-1.0

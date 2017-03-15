@@ -1,0 +1,28 @@
+/**** Red ****/
+.domain-egypt-localhost-8888 a {
+	color: #CE0A0A;
+}
+.domain-egypt-localhost-8888 .navigation{
+	background: url(../custom/images/menu_item.png) repeat-x;
+	border-top: 1px solid #FF5757;
+	border-bottom: 1px solid #FF5757;
+}
+.domain-egypt-localhost-8888 .navigation li a{
+	background: url(../custom/images/menu_separator.png) no-repeat right top;
+	text-shadow: -1px -1px 0 #A92009;
+	color: white;
+	border: 0px;
+}
+.domain-egypt-localhost-8888 .secondary-navigation{
+	border-top: 4px solid #D50505;
+	background: -webkit-linear-gradient(#363636 0%, #2C2C2C 100%);
+}
+
+.domain-egypt-localhost-8888 .calendar-calendar .has-events {
+	background: #E24646;
+}
+.domain-egypt-localhost-8888 .calendar-calendar .has-events a{
+	color: #fff;
+	text-decoration: none;
+}
+/***********************/

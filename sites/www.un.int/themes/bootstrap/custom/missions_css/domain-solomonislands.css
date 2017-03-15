@@ -1,0 +1,36 @@
+body.domain-solomonislands{
+	background-color: #E7E7D7;
+}
+.domain-solomonislands a {
+	color: #14B53A;
+}
+.domain-solomonislands .navigation{
+	background: -webkit-linear-gradient(#02399E 0%,#142950 100%);
+	background: -moz-linear-gradient(#02399E 0%,#142950 100%);
+	background: -o-linear-gradient(#02399E 0%,#142950 100%);
+	background: -ms-linear-gradient(#02399E 0%,#142950 100%);
+	background-color: #02399E;
+	border-top: 1px solid #0052FF;
+}
+.domain-solomonislands #navbar .navigation li a{
+	border-right: 1px solid #0D1949;
+}
+
+.domain-solomonislands #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #F6FF8C;
+	background: -webkit-linear-gradient(#138433 0%,#12662A 100%);
+	background: -moz-linear-gradient(#138433 0%,#12662A 100%);
+	background: -o-linear-gradient(#138433 0%,#12662A 100%);
+	background: -ms-linear-gradient(#138433 0%,#12662A 100%);
+	background-color: #B82234;
+}
+
+.domain-solomonislands #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #F8E20B;
+}
+.domain-solomonislands #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #204716;
+}
+.domain-solomonislands #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #329739;
+}

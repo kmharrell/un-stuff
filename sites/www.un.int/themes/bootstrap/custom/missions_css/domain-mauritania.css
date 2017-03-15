@@ -1,0 +1,28 @@
+body.domain-mauritania{
+	background-color: #E2EBDF;
+}
+.domain-mauritania a {
+	color: #1CAC1C;
+}
+.domain-mauritania .navigation{
+	background: -webkit-linear-gradient(#1CAC1C 0%,#1A6111 100%);
+	background: -moz-linear-gradient(#1CAC1C 0%,#1A6111 100%);
+	background: -o-linear-gradient(#1CAC1C 0%,#1A6111 100%);
+	background: -ms-linear-gradient(#1CAC1C 0%,#1A6111 100%);
+	background-color: #1CAC1C;
+	border-top: 1px solid #25B41F;
+}
+.domain-mauritania #navbar .navigation li a{
+	text-shadow: -1px -1px 0 #197E15;
+	color: #FF0;
+	border-right: 1px solid #2F6D24;
+}
+
+.domain-mauritania #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #5FC031;
+}
+.domain-mauritania #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #1D9118;
+}
+
+/***********************/

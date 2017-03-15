@@ -1,0 +1,8 @@
+name = custom_unite	
+description = "This is a custom module made for custmization required"
+core = 7.x
+version = "7.x"
+core = "7.x"
+project = "custom_unite"
+datestamp = "1337292349"
+files[] = views/handlers/unite_events_doc_print_handler.inc

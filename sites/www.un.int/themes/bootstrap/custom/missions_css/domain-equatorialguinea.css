@@ -1,0 +1,36 @@
+body.domain-equatorialguinea{
+	background-color: #E2FADA;
+}
+.domain-equatorialguinea a {
+	color: #CE0A0A;
+}
+.domain-equatorialguinea .navigation{
+	background: -webkit-linear-gradient(#249E44 0%, #1F7C37 100%);
+	background: -moz-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background: -o-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background: -ms-linear-gradient(#FD0 0%, #8F7D0D 100%);
+	background-color: #249E44;
+	border-top: 1px solid #1FC74B;
+	
+}
+.domain-equatorialguinea #navbar .navigation li a{
+	border-right: 1px solid #177730;
+	text-shadow: -1px -1px 0 #206932;
+}
+
+.domain-equatorialguinea #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #007BFD;
+	background: -webkit-linear-gradient(#BC0224 0%, #A3171D 100%);
+	background: -moz-linear-gradient(#BC0224 0%, #A3171D 100%);
+	background: -o-linear-gradient(#BC0224 0%, #A3171D 100%);
+	background: -ms-linear-gradient(#BC0224 0%, #A3171D 100%);
+	background-color: #EE1B24;
+}
+.domain-equatorialguinea #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #E67D7D;
+}
+.domain-equatorialguinea #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #024F9C;
+}
+
+/***********************/

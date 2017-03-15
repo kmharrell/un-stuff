@@ -1,0 +1,343 @@
+<?php
+
+/**
+ * Implementation of hook_js_alter();
+ * Display summary field on node edit form by default
+ */
+/*
+function custom_unite_web_js_alter(&$javascript) {
+  // remove the JS that does the show/hide summary
+  unset($javascript['modules/field/modules/text/text.js']);
+}
+*/
+
+/**
+ * Implementation of hook_node_validate();
+
+function custom_unite_web_node_validate($node, $form, &$form_state) {
+  if (!isset($node->body['und'][0]['summary']) || !$node->body['und'][0]['summary']) {
+    form_set_error('Node', t('You must enter a summary!'));
+  } 
+}
+ */
+
+function custom_unite_web_form_about_node_form_alter(&$form, $form_state) {
+	drupal_add_js(drupal_get_path('module', 'custom_unite_web').'/js/unite_web_about_form.js');
+	$form['field_main_menu']['und']['#element_validate'][] = 'custom_unite_web_form_validate_menu_checkboxes';
+}
+
+function custom_unite_web_form_validate_menu_checkboxes($form, &$form_state) {
+	$allowed_values = custom_unite_web_get_locked_menu_items();
+	$set_values = array();
+	foreach ($form_state['values']['field_main_menu']['und'] as $checkbox) {
+		$set_values[$checkbox['value']] = $checkbox['value'];	
+	}
+	$intersect = array_intersect($allowed_values, array_flip($set_values));
+	
+	if ($intersect != $allowed_values) {
+	    drupal_set_message(print_r($form_state['values']['field_main_menu']['und'], true));
+		form_set_error('field_main_menu', 'You have disabled a required menu item.');
+	}
+}
+
+function custom_unite_web_get_locked_menu_items() {
+	return array(
+	  218=>218,
+	  731=>731,
+	  629=>629,
+	  // 629=>629,
+	);
+}
+function custom_unite_web_get_possible_menu_items() {
+	return array(	  
+		//218=> 'Home',
+		440=> 'News',
+		590=> 'Events',
+		570=> 'Mission Activities',
+		569=> 'Statements and Speeches',
+		//731=> 'About',
+		633=> 'Links',
+		621=> 'Media',
+		//629=> 'Mission Staff',
+	);
+}
+function custom_unite_web_get_domain_about($did = null, $reset = false) {
+	static $nid;
+	
+	if (!isset($nid) || $reset == true) {
+		if ($did == null) {
+			$domain = domain_get_domain(); // Make this load the current domain
+			$did = $domain['domain_id'];
+		}
+			
+		$sql = "
+		SELECT n.nid FROM {node} n
+		INNER JOIN {domain_access} d ON d.nid = n.nid AND d.gid = :gid
+		WHERE n.type = 'about'";
+		$result = db_query($sql, array(':gid' => $did))->fetchObject();
+		
+		if (isset($result->nid)) {
+			$nid = $result->nid;
+		}
+		else {
+			$nid = false;
+		}		
+	}
+	return $nid;
+}
+
+function custom_unite_web_preprocess_page(&$vars) {
+	$tree = menu_build_tree('main-menu');
+	
+	$about_node = node_load(custom_unite_web_get_domain_about());
+	$allowed_menu_ids = array(218=>218);
+	if (isset($about_node->field_main_menu['und'])) {
+		foreach ($about_node->field_main_menu['und'] as $menu_item) {
+			$allowed_menu_ids[$menu_item['value']] = $menu_item['value'];
+		}
+	}
+	foreach ($tree as $tree_id => $leaf) {
+		if (isset($leaf['link']['mlid'])) {
+			if (!in_array($leaf['link']['mlid'], $allowed_menu_ids)) {
+				unset($tree[$tree_id]);
+			}
+		}
+	}
+	
+	$tree = menu_tree_output($tree);
+	
+	$vars['domain_menu'] = '';
+	if (is_array($tree)) {
+		$domain_menu = '<ul id="domain_menu">';
+		foreach ($tree as $mid => $leaf) {
+		    if (is_numeric($mid)) {
+			  $domain_menu .= theme('menu_link', $leaf);
+		    }
+		}
+		$domain_menu .= '</ul>';	
+	}
+	
+	if (isset($domain_menu)) {
+		$vars['domain_menu'] = $domain_menu;
+	}
+}
+
+
+/**
+ * Implements hook_node_submit()
+ */
+function custom_unite_web_node_submit(&$node) {
+  // If not set, we ignore.
+  if (!isset($node->domain_source) || is_null($node->domain_source)) {
+    return;
+  }
+  $domain = domain_get_domain();
+  if (isset($domain['domain_id'])) {
+	$node->domain_source = $domain['domain_id'];
+  }
+}
+
+
+/** 
+* Implements hook_form_alter(). 
+* Hiding 'sticky' and 'promoted to front page' options in Drupal
+*/ 
+function custom_unite_web_form_alter(&$form, &$form_state, $form_id) {
+ if (strpos($form_id, '_node_form') !== FALSE) {
+  unset($form['options']['sticky']);
+  unset($form['options']['promote']);
+ }
+ if ($form_id == "subfolders_domain_admin"){
+	 $form['subfolders_domain']['language']['#required'] = false;
+ }
+ 
+ // Add support for CKEdito in Blocks
+ if ($form_id == 'i18n_string_translate_page_form') {
+    // Loop all strings.
+    foreach ($form['strings']['all'] as $name => $field) {
+      // The field for [ block title / vocabulary name / vocabulary description / term name ] are textfields in ori language,
+      // but textareas when translating: change these to textfields.
+      if (
+        preg_match('/blocks:block:[0-9]+:title/i' , $name) ||
+        preg_match('/taxonomy:(vocabulary|term):[0-9]+:name/i' , $name) ||
+        preg_match('/taxonomy:vocabulary:[0-9]+:description/i' , $name)
+      ) {
+        $form['strings']['all'][$name]['#type'] = 'textfield';
+      }
+      // Change textarea to text_format and overwrite description which is already auto included in text_format fields.
+      elseif (
+        preg_match('/blocks:block:[0-9]+:body/i' , $name) ||
+        preg_match('/taxonomy:term:[0-9]+:description/i' , $name)
+      ) {
+        $form['strings']['all'][$name]['#type'] = 'text_format';
+        $form['strings']['all'][$name]['#description'] = '<br />';
+      }
+    }
+    // Add submit function.
+    $form['#submit'] = array_merge(array('_custom_unite_web_form_submit') , $form['#submit']);
+  }
+ 
+}
+
+function _custom_unite_web_form_submit($form, &$form_state) {
+  // Remove wysiwyg format because i18n cant handle it.
+  foreach ($form_state['values']['strings'] as $name => $field) {
+    if (
+      preg_match('/blocks:block:[0-9]+:body/i' , $name) ||
+      preg_match('/taxonomy:term:[0-9]+:description/i' , $name)
+    ){
+      unset($form_state['values']['strings'][$name]['format']);
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_property_info_alter().
+ *
+ * Adds an entity property for the domain access of the node.
+ */
+function custom_unite_web_entity_property_info_alter(&$info) {
+  foreach ($info as &$entity_type) {
+    $properties = &$entity_type['properties'];
+
+    $properties['custom_domain_access_id'] = array(
+      'label' => t('Domain Access IDs'),
+      'description' => t('The domain IDs to which the node is published.'),
+      'type' => 'list<integer>',
+      'getter callback' => 'search_api_domain_get_domain_info_id',
+    );
+    $properties['custom_domain_access_name'] = array(
+      'label' => t('Domain Access Names'),
+      'description' => t('The domain names to which the node is published.'),
+      'type' => 'list<string>',
+      'getter callback' => 'search_api_domain_get_domain_info_name',
+    );
+    $properties['custom_domain_access_source_id'] = array(
+      'label' => t('Domain Access Source ID'),
+      'description' => t('The domain ID of the source domain.'),
+      'type' => 'integer',
+      'getter callback' => 'search_api_domain_get_domain_info_source_id',
+    );
+    $properties['custom_domain_access_source_name'] = array(
+      'label' => t('Domain Access Source Name'),
+      'description' => t('The domain Name of the source domain.'),
+      'type' => 'string',
+      'getter callback' => 'search_api_domain_get_domain_info_source_name',
+    );
+  }
+}
+/**
+ * Getter callback; returns the domain IDs that the node belongs to.
+ */
+function search_api_domain_get_domain_info_id($data, array $options, $name, $type, $info) {
+  return (!empty($data->domains) ? $data->domains : NULL);
+}
+/**
+ * Getter callback; returns the domain names that the node belongs to.
+ */
+function search_api_domain_get_domain_info_name($data, array $options, $name, $type, $info) {
+  return (!empty($data->subdomains) ? $data->subdomains : NULL);
+}
+/**
+ * Getter callback; returns the source domain ID of the node.
+ */
+function search_api_domain_get_domain_info_source_id($data, array $options, $name, $type, $info) {  
+  return (!empty($data->domain_source) ? $data->domain_source : NULL);
+}
+/**
+ * Getter callback; returns the source domain name of the node.
+ */
+function search_api_domain_get_domain_info_source_name($data, array $options, $name, $type, $info) {
+  if (!empty($data->domain_source)) {
+    $domain = domain_load($data->domain_source);
+    return $domain['sitename'];
+  }
+  else {
+    return null;
+  }
+}
+
+/**
+ * Implements hook_views_data().
+ */
+function custom_unite_web_views_data_alter(&$data) {
+  $data['search_api_index_main_search']['custom_domain_access_name']['field'] = array(
+    'handler' => 'entity_views_handler_field_text',
+    'type' => 'text',
+  );
+  $data['search_api_index_main_search']['custom_domain_access_source_name']['field'] = array(
+    'handler' => 'entity_views_handler_field_text',
+    'type' => 'text',
+  );
+}
+
+function custom_unite_web_morelink_builder($path) {
+  $new_properties = array();
+  if (isset($_GET['s'])) {
+    $new_properties['s'] = $_GET['s'];
+  }
+  if (isset($_GET['f'])) {
+    $new_properties['f'] = $_GET['f'];
+  }
+  if (isset($_GET['blocks'])) {
+    $new_properties['blocks'] = $_GET['blocks'];
+  }
+  return l('See More', $path, array('query' => $new_properties));
+}
+
+function custom_unite_web_get_search_query() {
+  if (isset($_GET['s'])) {
+    return $_GET['s'];
+  }
+  else {
+	 return 'all';
+  }
+}
+
+/**
+ * Implementation of hook_query_linkit_node_autocomplete_alter
+ */
+function custom_unite_web_query_linkit_node_autocomplete_alter($query) {
+  $query->innerJoin('domain_access', NULL, 'node.nid = domain_access.nid');
+  $current_domain = domain_get_domain();
+  $query->condition('domain_access.gid', $current_domain['domain_id']);
+}
+
+/*
+ * Implementation of hook_menu()
+ */
+function custom_unite_web_menu(){
+    
+//     Manage Files Page
+    $items['console/files'] = array(
+        // page title
+        'title' => 'Manage Files',
+        // describe the page for the menu system.  site visitors will not see this
+        'description' => 'Simple custom hook_menu() implementation.',
+        // function that is called when visiting the new path
+        'page callback' => 'console_files_function',
+        // permissions required to view page
+        'access arguments' => array('access content'),
+    );  
+    return $items;
+    
+}
+
+/*
+ * Returns custom content to Drupal
+ */
+function console_files_function(){
+	
+	global $_domain;
+	$url = domain_get_path($_domain).'imce';
+	
+	$r = $_SERVER['REQUEST_URI']; 
+	$test1 = explode('/', $kevtest, 1);
+
+    $content['raw_markup'] = array(
+    '#type' => 'markup',
+    '#markup' => $test1,
+  );
+ 
+  return $content;
+}

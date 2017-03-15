@@ -1,0 +1,29 @@
+.domain-uae a {
+	color: #D19C38;
+}
+.domain-uae .navigation{
+	background: -webkit-linear-gradient(#E7B75E 0%,#B88A34 100%);
+	background: -moz-linear-gradient(#E7B75E 0%,#B88A34 100%);
+	background: -o-linear-gradient(#E7B75E 0%,#B88A34 100%);
+	background: -ms-linear-gradient(#E7B75E 0%,#B88A34 100%);
+	background-color: #B88A34;	
+	border-top: 1px solid #B88A34;
+}
+.domain-uae #navbar .navigation li a{
+	text-shadow: -1px -1px 0 #7A5F2B;
+	border-right: 1px solid #B38838;
+}
+.domain-uae #navbar .navigation #block-views-about-mission-block-4 li a {
+	color: #FFF;
+}
+.domain-uae #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #A38347;
+	background: -webkit-linear-gradient(#6D6E71 0%,#3A3B3F 100%);	
+	background: -moz-linear-gradient(#6D6E71 0%,#3A3B3F 100%);
+	background: -o-linear-gradient(#6D6E71 0%,#3A3B3F 100%);
+	background: -ms-linear-gradient(#6D6E71 0%,#3A3B3F 100%);
+	background-color: #363636;
+}
+.domain-uae #block-views-about-mission-block-4 .views-field-field-secondary-menu {
+	border-top: 4px solid #D1BB93;
+}

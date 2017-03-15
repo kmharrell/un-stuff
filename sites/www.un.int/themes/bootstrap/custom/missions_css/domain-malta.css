@@ -1,0 +1,33 @@
+.domain-malta a{
+	color: #E73535;
+}
+.domain-malta #navbar .navigation {
+	background: -webkit-linear-gradient(#FFF 0%,#F5E1E1 100%);
+	background: -moz-linear-gradient(#FFF 0%,#F5E1E1 100%);
+	background: -o-linear-gradient(#FFF 0%,#F5E1E1 100%);
+	background: -ms-linear-gradient(#FFF 0%,#F5E1E1 100%);
+	background-color: #FFF;
+	border-top: 1px solid #D6D6D6;
+}
+.domain-malta #navbar .navigation li a {
+	text-shadow: -1px -1px 0 #FFF;
+	color: #6B6B6B;
+	border-right: 1px solid #D3D3D3;
+}
+
+.domain-malta #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #000000;
+	background: url(/sites/www.un.int/themes/bootstrap/custom/missions_css/images/menu_item.png) repeat-x;
+}
+.domain-malta #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 0;
+}
+.domain-malta #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 0;
+	background: url(/sites/www.un.int/themes/bootstrap/custom/missions_css/images/menu_separator.png) no-repeat right top;
+}
+.domain-malta #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #424242;
+}
+
+/***********************/

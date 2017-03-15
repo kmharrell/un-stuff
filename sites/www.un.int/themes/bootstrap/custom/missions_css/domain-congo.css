@@ -1,0 +1,33 @@
+.domain-congo a{
+	color: #009e60;
+}
+.domain-congo #navbar .navigation {
+	background: -webkit-linear-gradient(#009E60 0%,#317F1E 100%);
+	background: -moz-linear-gradient(#009E60 0%,#317F1E 100%);
+	background: -o-linear-gradient(#009E60 0%,#317F1E 100%);
+	background: -ms-linear-gradient(#009E60 0%,#317F1E 100%);
+	background-color: #009e60;
+	border-top: 1px solid #52CF2A;
+}
+.domain-congo #navbar .navigation li a {
+	text-shadow: -1px -1px 0 #339242;
+	color: #FFF;
+	border-right: 1px solid #188313;
+}
+
+.domain-congo #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #FFEA00;
+	background: url(/sites/www.un.int/themes/static/custom/images/menu_item.png) repeat-x;
+}
+.domain-congo #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 0;
+}
+.domain-congo #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 0;
+	background: url(/sites/www.un.int/themes/static/custom/images/menu_separator.png) no-repeat right top;
+}
+.domain-congo #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #E7D446;
+}
+
+/***********************/

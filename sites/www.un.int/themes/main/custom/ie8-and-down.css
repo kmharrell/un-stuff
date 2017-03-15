@@ -1,0 +1,68 @@
+.span6 {
+		margin-left: 0px;
+		width: 600px;
+}
+.span6.front-top {
+	width: 590px;
+}
+.node-mission-staff .span6, .page-node-23 .span6 {
+	width: 550px;
+}
+.span3 {
+	margin-left: 10px;
+	width: 280px;
+}
+.span9 {
+	width: 880px;
+	margin-left: 0;
+}
+.row, .span12 {
+	margin-left: 0px;
+	width: 1170px;
+}
+.secondary-navigation {
+	background: #2C2C2C;
+}
+.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container, #navbar .container{
+	width: 1170px;
+}
+.share-this li{
+	margin: 0px;
+}
+.span5 {
+	width: 470px;
+}
+.event-header h2 {
+	background: #363636;
+}
+.event-info {
+	background: #F0F0F0;
+}
+#navbar #domain_menu li{
+	float: left;
+}
+#navbar .navigation #block-views-about-mission-block-4 li{
+	float: left;
+}
+.navbar #block-search-form {
+	margin: 5px 45px 5px 5px;
+}
+
+#mapglossary li{
+	float: left;
+}
+#mapglossary {
+	height: 22px;
+}
+.list-item {
+	width: 23.9%;
+}
+.search-any {
+	clear: right;
+}
+#navbar .navbar-inner {
+	filter: none;
+}
+#edit-s {
+width: 222px;
+}

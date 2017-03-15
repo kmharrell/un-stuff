@@ -1,0 +1,37 @@
+.domain-nauru a {
+	color: #79751D;
+}
+.domain-nauru .navigation{
+	background: -webkit-linear-gradient(#0C0A6C 0%,#05041A 100%);
+	background: -moz-linear-gradient(#0C0A6C 0%,#05041A 100%);
+	background: -o-linear-gradient(#0C0A6C 0%,#05041A 100%);
+	background: -ms-linear-gradient(#0C0A6C 0%,#05041A 100%);
+	background-color: #0c0a6c;
+	border-top: 1px solid #080734;
+	
+}
+
+.domain-nauru #navbar .navigation li a{
+	text-shadow: -1px -1px 0 #0c0a6c;
+	border-right: 1px solid #35346F;
+}
+
+.domain-nauru #navbar .navigation #block-views-about-mission-block-4 {
+	border-top: 1px solid #B8B277;
+	background: -webkit-linear-gradient(#DCCE14 0%,#CFC001 100%); 
+	background: -moz-linear-gradient(#DCCE14 0%,#CFC001 100%); 
+	background: -o-linear-gradient(#DCCE14 0%,#CFC001 100%); 
+	background: -ms-linear-gradient(#DCCE14 0%,#CFC001 100%); 
+	background-color: #dcce14;
+}
+.domain-nauru #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #fff;
+}
+.domain-nauru #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #D2D034;
+	text-shadow: 0 1px 0px rgba(0, 0, 0, 0.3);
+}
+
+.domain-nauru #navbar .navigation #block-views-about-mission-block-4 li {
+    border-right: 1px solid #AEAC18;
+}

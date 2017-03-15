@@ -1,0 +1,36 @@
+body.domain-cotedivoire {
+    background-color: #fdf3f1;
+}
+.domain-cotedivoire a{
+	color: #009e60;
+}
+.domain-cotedivoire #navbar .navigation {
+	background: -webkit-linear-gradient(#f77f00 0%,#b3610b 100%);
+	background: -moz-linear-gradient(#f77f00 0%,#b3610b 100%);
+	background: -o-linear-gradient(#f77f00 0%,#b3610b 100%);
+	background: -ms-linear-gradient(#f77f00 0%,#b3610b 100%);
+	background-color: #f77f00;
+	border-top: 1px solid #ffba70;
+}
+.domain-cotedivoire #navbar .navigation li a {
+	text-shadow: -1px -1px 0 #b35e06;
+	border-right: 1px solid #bf6609;
+}
+
+.domain-cotedivoire #navbar .navigation #block-views-about-mission-block-4{
+	border-top: 1px solid #bba48b;;
+	background: -webkit-linear-gradient(#009e60 0%,#01824f 100%);
+	background: -moz-linear-gradient(#009e60 0%,#01824f 100%);
+	background: -o-linear-gradient(#009e60 0%,#01824f 100%);
+	background: -ms-linear-gradient(#009e60 0%,#01824f 100%);
+	background-color: #009e60;
+}
+.domain-cotedivoire #navbar .navigation #block-views-about-mission-block-4 li {
+	border-right: 1px solid #0c6f3c;
+}
+.domain-cotedivoire #navbar .navigation #block-views-about-mission-block-4 li a {
+	border-right: 1px solid #149653;
+}
+.domain-cotedivoire #navbar .navigation #block-views-about-mission-block-4 .views-field-field-secondary-menu{
+	border-top: 4px solid #ffffff;;
+}
